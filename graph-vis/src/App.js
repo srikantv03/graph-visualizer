@@ -1,75 +1,70 @@
-import React from 'react';
-import { render } from 'react-dom';
-import { Stage, Layer, Circle, Text } from 'react-konva';
+import React from "react";
+import ReactDOM from "react-dom";
+import Graph from "react-graph-vis";
 
-function generateShapes() {
-  return [...Array(10)].map((_, i) => ({
-    id: i.toString(),
-    x: Math.random() * window.innerWidth,
-    y: Math.random() * window.innerHeight,
-    rotation: 0,
-    isDragging: false,
-  }));
+import "./index.css";
+// need to import the vis network css in order to show tooltip
+// import "./network.css";
+
+function App() {
+  function fromAdjMatrix(matrix) {
+    var gp = {
+      nodes: [],
+      edges: []
+    };
+    for (var i = 0; i < matrix.length; i++) {
+      gp.nodes.push({ id: i + 1, label: `${i + 1}`, title: `Node: ${i + 1}`});
+      for (var j = 0; j < matrix[0].length; j++) {
+        if (matrix[i][j] === 1) {
+          gp.edges.push({from: i + 1, to: j + 1});
+        }
+      }
+    }
+    return gp;
+  }
+
+  const matrix = [[0, 1, 1],
+  [1, 0, 1],
+  [1, 1, 0]];
+
+  const graph = fromAdjMatrix(matrix);
+  console.log(graph);
+
+  const options = {
+    edges: {
+      arrows: {
+        to: false,
+        from: false
+      },
+      color: "#000000"
+    },
+    nodes: {
+      shape: "circle"
+    },
+    layout: {
+      hierarchical: false
+    },
+    height: "1000px"
+  };
+
+  const events = {
+    select: function(event) {
+      var { nodes, edges } = event;
+    }
+  };
+  return (
+    <Graph
+      graph={graph}
+      options={options}
+      events={events}
+      getNetwork={network => {
+        //  if you want access to vis.js network api you can set the state in a parent component using this property
+      }}
+    />
+  );
 }
 
-const INITIAL_STATE = generateShapes();
-
-const App = () => {
-  const [circles, setCircles] = React.useState(INITIAL_STATE);
-
-  const handleDragStart = (e) => {
-    const id = e.target.id();
-    setCircles(
-      circles.map((circle) => {
-        return {
-          ...circle,
-          isDragging: circle.id === id,
-        };
-      })
-    );
-  };
-  const handleDragEnd = (e) => {
-    setCircles(
-      circles.map((circle) => {
-        return {
-          ...circle,
-          isDragging: false,
-        };
-      })
-    );
-  };
-
-  return (
-    <Stage width={window.innerWidth} height={window.innerHeight}>
-      <Layer>
-        <Text text="Try to drag a star" />
-        {circles.map((circle) => (
-          <Circle
-            key={circle.id}
-            id={circle.id}
-            x={circle.x}
-            y={circle.y}
-            radius={50}
-            fill="#0073ff"
-            opacity={1}
-            draggable
-            rotation={circle.rotation}
-            shadowColor="black"
-            shadowBlur={10}
-            shadowOpacity={0.6}
-            shadowOffsetX={circle.isDragging ? 10 : 5}
-            shadowOffsetY={circle.isDragging ? 10 : 5}
-            scaleX={circle.isDragging ? 1.2 : 1}
-            scaleY={circle.isDragging ? 1.2 : 1}
-            onDragStart={handleDragStart}
-            onDragEnd={handleDragEnd}
-          />
-        ))}
-      </Layer>
-    </Stage>
-  );
-};
-
-render(<App />, document.getElementById('root'));
+const rootElement = document.getElementById("root");
+ReactDOM.render(<App />, rootElement);
 
 export default App;
