@@ -1,10 +1,31 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Graph from "react-graph-vis";
+import {AppBar, Toolbar, IconButton, Typography, Button} from '@material-ui/core';
+import { fade, makeStyles } from '@material-ui/core/styles';
+import MenuIcon from '@material-ui/icons/Menu';
+// import SwitchButton from "Components.js";
 
 import "./index.css";
 // need to import the vis network css in order to show tooltip
 // import "./network.css";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  title: {
+    flexGrow: 1,
+    display: 'none',
+    [
+      theme.breakpoints.up('sm')]: {
+        display: 'block',
+    },
+  },
+}));
 
 function App() {
   function fromAdjMatrix(matrix) {
@@ -24,8 +45,8 @@ function App() {
   }
 
   const matrix = [[0, 1, 1],
-  [1, 0, 1],
-  [1, 1, 0]];
+                  [1, 0, 1],
+                  [1, 1, 0]];
 
   const graph = fromAdjMatrix(matrix);
   console.log(graph);
@@ -52,15 +73,33 @@ function App() {
       var { nodes, edges } = event;
     }
   };
+  const classes = useStyles();
   return (
-    <Graph
+    <div className={classes.root}>
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton
+            className={classes.menuButton}
+            color="inherit"
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography className={classes.title} variant="h6" noWrap>
+            Welcome To GFG
+          </Typography>
+              <Button color="inherit">Login</Button>
+        </Toolbar>
+      </AppBar>
+      <Graph
       graph={graph}
       options={options}
       events={events}
       getNetwork={network => {
         //  if you want access to vis.js network api you can set the state in a parent component using this property
       }}
-    />
+      />
+    </div>
+
   );
 }
 
