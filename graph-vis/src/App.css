@@ -36,3 +36,19 @@
     transform: rotate(360deg);
   }
 }
+
+.gridItem{
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  border: solid 1px #888;
+  border-radius: 6px;
+  margin: 4px;
+}
+.highlight
+{
+  width: 30px;
+  height: 30px;
+  border-width: 2px;
+  background-color: #AFA;
+}
