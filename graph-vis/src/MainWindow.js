@@ -9,9 +9,85 @@ import MenuIcon from '@material-ui/icons/Menu';
 function MainWindow() {
     const [cols, setCols] = useState(0);
     const [rows, setRows] = useState(1);
+    const [obstacles, setObstacles] = useState(2);
+    const [start, setStart] = useState(3);
+    const [end, setEnd] = useState(4);
 
     const handleRowChange = (e) => setRows(e.target.value);
     const handleColsChange = (e) => setCols(e.target.value);
+
+    const dfsSearch = () => {
+      var m = cols - 1;
+      var n = rows - 1;
+      var visited = [];
+      for (var i = 0; i < cols; i++) {
+        visited.push([])
+        for (var j = 0; j < rows; j++) {
+          visited[i].push(false);
+        }
+      }
+      console.log(m)
+      console.log(n)
+      const obst = [...obstacles];
+      console.log(obst);
+      return dfsHelper(visited, 0, 0, m, n)
+    }
+
+    const dfsHelper = (visited, x, y, m, n) => {
+      const obst = [...obstacles];
+      if (x == m && y == n) {
+        return true;
+      } else {
+        visited[x][y] = true;
+        if (document.querySelector(`div[data-id='${x * (n + 1) + y}']`) == null) {
+          console.log(x * (n + 1) + y);
+          return false;
+        }
+        document.querySelector(`div[data-id='${x * (n + 1) + y}']`).classList.add("pathObject");
+        var nextMoves = [[x - 1, y],[x + 1, y], [x, y - 1], [x, y + 1]];
+        console.log(nextMoves)
+        var returnValue = false;
+        for (var move of nextMoves) {
+          console.log(move);
+          var nx = move[0]
+          var ny = move[1]
+
+          if (nx >= 0 && ny >= 0 && nx <= n && nx <= m && !visited[nx][ny] && obst.indexOf(`${((nx * (n + 1) + ny))}`) == -1) {
+            console.log(visited);
+            returnValue = setTimeout(() => dfsHelper(visited, nx, ny, m, n), 500);
+            console.log(returnValue);
+            if (returnValue) {
+              break;
+            }
+          }
+        }
+        // visited[x][y] = false;
+        return returnValue;
+      }
+    }
+
+
+    const editState = (e) => {
+      if (obstacles instanceof Array) {
+        var temp = [...obstacles];
+      } else {
+        var temp = [];
+      }
+      console.log(temp);
+      console.log(e.target.getAttribute('data-id'));
+      for (var i = 0; i < temp.length; i++) {
+        let val = temp[i];
+        if (val == e.target.getAttribute('data-id')) {
+          temp.splice(i, 1);
+          setObstacles(temp);
+          e.target.className = "gridItem";
+          return;
+        }
+      }
+      temp.push(e.target.getAttribute('data-id'));
+      setObstacles(temp);
+      e.target.className = "gridItem obstacle";
+    }
 
     const classes = makeStyles((theme) => ({
         root: {
@@ -54,10 +130,11 @@ function MainWindow() {
           <Typography className={classes.title} variant="h6" noWrap>
             Graph Algorithm Visualization Tool
           </Typography>
+          <Button onClick={dfsSearch}>DFS</Button>
         </Toolbar>
       </AppBar>
       
-      <FormControl fullWidth>
+
       <Select
         labelId="row-select-label"
         id="row-select"
@@ -80,12 +157,12 @@ function MainWindow() {
           <MenuItem value={value}>{value}</MenuItem>
         ))}
       </Select>
-      
-    </FormControl>
+
+      <h1>Click to add obstacles</h1>
       <div id="grid">
         {data.map((row, index) => (
           <div>
-          {row.map(cellId => <div className="gridItem" key={cellId}></div>)}
+          {row.map(cellId => <div onClick={editState} className="gridItem" key={cellId} data-id={cellId}></div>)}
           <br/>
           </div>
         ))}

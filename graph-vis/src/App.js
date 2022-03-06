@@ -10,12 +10,9 @@ import "./App.css";
 
 
 function App() {
-  const matrix = [[1, 1, 1],
-  [1, 1, 1],
-  [1, 1, 1]];
   return (
     <div className="App">
-      <MainWindow matrix={matrix}/>
+      <MainWindow/>
     </div>
     
   );

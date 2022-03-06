@@ -45,6 +45,21 @@
   border-radius: 6px;
   margin: 4px;
 }
+
+#grid {
+  padding: 4px;
+  border-radius: 6px;
+  border: solid 1px black;
+}
+
+.obstacle {
+  background-color: black;
+}
+
+.pathObject {
+  background-color: green;
+}
+
 .highlight
 {
   width: 30px;
