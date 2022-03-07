@@ -53,11 +53,13 @@
 }
 
 .obstacle {
-  background-color: black;
+  background: rgb(70,70,70);
+  background: linear-gradient(45deg, rgba(70,70,70,1) 0%, rgba(0,0,0,1) 100%);
 }
 
 .pathObject {
-  background-color: green;
+  background: rgb(9,115,121);
+  background: linear-gradient(45deg, rgba(9,115,121,1) 0%, rgba(0,212,255,1) 100%);
 }
 
 .highlight

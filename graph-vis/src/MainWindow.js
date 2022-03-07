@@ -16,7 +16,11 @@ function MainWindow() {
     const handleRowChange = (e) => setRows(e.target.value);
     const handleColsChange = (e) => setCols(e.target.value);
 
-    const dfsSearch = () => {
+    const sleep = (milliseconds) => {
+      return new Promise(resolve => setTimeout(resolve, milliseconds))
+    }
+
+    const dfsSearch = async () => {
       var m = cols - 1;
       var n = rows - 1;
       var visited = [];
@@ -28,13 +32,12 @@ function MainWindow() {
       }
       console.log(m)
       console.log(n)
-      const obst = [...obstacles];
-      console.log(obst);
-      return dfsHelper(visited, 0, 0, m, n)
+      return await dfsHelper(visited, 0, 0, m, n)
     }
 
-    const dfsHelper = (visited, x, y, m, n) => {
-      const obst = [...obstacles];
+    const dfsHelper = async (visited, x, y, m, n) => {
+      const obst = obstacles instanceof Array ? [...obstacles] : [];
+      
       if (x == m && y == n) {
         return true;
       } else {
@@ -54,14 +57,18 @@ function MainWindow() {
 
           if (nx >= 0 && ny >= 0 && nx <= n && nx <= m && !visited[nx][ny] && obst.indexOf(`${((nx * (n + 1) + ny))}`) == -1) {
             console.log(visited);
-            returnValue = setTimeout(() => dfsHelper(visited, nx, ny, m, n), 500);
+            await sleep(200);
+            returnValue = await dfsHelper(visited, nx, ny, m, n);
             console.log(returnValue);
             if (returnValue) {
               break;
             }
           }
         }
-        // visited[x][y] = false;
+        visited[x][y] = false;
+        if (!returnValue) {
+          document.querySelector(`div[data-id='${x * (n + 1) + y}']`).classList.remove("pathObject");
+        }
         return returnValue;
       }
     }
