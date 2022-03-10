@@ -37,13 +37,17 @@
   }
 }
 
-.gridItem{
+.gridItem {
   display: inline-block;
   width: 32px;
   height: 32px;
   border: solid 1px #888;
   border-radius: 6px;
   margin: 4px;
+  -moz-transition: background-color 0.2s linear;
+  -o-transition: background-color 0.2s linear;
+  -webkit-transition: background-color 0.2s linear;
+  transition: background-color 0.2s linear;
 }
 
 #grid {
@@ -57,9 +61,10 @@
   background: linear-gradient(45deg, rgba(70,70,70,1) 0%, rgba(0,0,0,1) 100%);
 }
 
-.pathObject {
+.gridItem.pathObject {
   background: rgb(9,115,121);
   background: linear-gradient(45deg, rgba(9,115,121,1) 0%, rgba(0,212,255,1) 100%);
+  
 }
 
 .highlight
