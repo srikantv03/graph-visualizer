@@ -11,14 +11,18 @@ import "./App.css";
 
 
 function App() {
-  const darkTheme = createTheme({
+  const theme = createTheme({
     palette: {
       mode: 'dark',
     },
+    typography: {
+      fontFamily: 'Inter',
+    },
   });
+  
 
   return (
-    <ThemeProvider theme={darkTheme}>
+    <ThemeProvider theme={theme}>
     <div className="App">
       <MainWindow/>
     </div>

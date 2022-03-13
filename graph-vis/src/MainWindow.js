@@ -13,6 +13,7 @@ function MainWindow() {
     const [obstacles, setObstacles] = useState([]);
     const [start, setStart] = useState(0);
     const [end, setEnd] = useState(24);
+    const [path, setPath] = useState({});
     const [running, setRunning] = useState(false);
 
     const handleRowChange = (e) => {
@@ -29,12 +30,7 @@ function MainWindow() {
     }
 
     const clearGrid = () => {
-      for (var i = 0; i < cols; i++) {
-        data.push([])
-        for (var j = 0; j < rows; j++) {
-          data[i].push((rows * i) + j)
-        }
-      }
+      setObstacles([])
     }
 
     const bfsSearch = async () => {
@@ -61,31 +57,32 @@ function MainWindow() {
 
     const dfsHelper = async (visited, x, y, m, n, v) => {
       const obst = [...obstacles];
-      
+      var cellId = x * (n + 1) + y;
       if (x == m && y == n) {
         return true;
       } else {
         visited[x][y] = true;
-        if (document.querySelector(`div[data-id='${x * (n + 1) + y}']`) == null) {
-          console.log(x * (n + 1) + y);
+        if (document.querySelector(`div[data-id='${cellId}']`) == null) {
+          console.log(cellId);
           return false;
         }
-        document.querySelector(`div[data-id='${x * (n + 1) + y}']`).setAttribute("style", `background-color: rgb(0, ${(15-Math.min(m, n)) * v}, ${255 - ((15-Math.min(m, n)) * v)})`);
+
+        path[cellId] = v
+        setPath({...path});
+        console.log(path)
+
         var nextMoves = [[x - 1, y],[x + 1, y], [x, y - 1], [x, y + 1]];
-        console.log(nextMoves)
         var returnValue = false;
+
         for (var move of nextMoves) {
           var nx = move[0]
           var ny = move[1]
           if (nx >= visited.length || ny >= visited[0].length) {
             continue;
           }
-          if (nx >= 0 && ny >= 0 && nx <= n && nx <= m && !visited[nx][ny] && obst.indexOf(`${((nx * (n + 1) + ny))}`) == -1) {
-            console.log(move);
-            console.log(visited);
+          if (nx >= 0 && ny >= 0 && nx <= n && nx <= m && !visited[nx][ny] && obst.indexOf(nx * (n + 1) + ny) == -1) {
             await sleep(200);
             returnValue = await dfsHelper(visited, nx, ny, m, n, v + 1);
-            console.log(returnValue);
             if (returnValue) {
               break;
             }
@@ -94,33 +91,30 @@ function MainWindow() {
         visited[x][y] = false;
         if (!returnValue) {
           await sleep(200);
-          document.querySelector(`div[data-id='${x * (n + 1) + y}']`).setAttribute("style", ``);
+          let npath = {...path}; 
+          delete npath[0];
+          setPath({...npath});
+          console.log(npath);
+          // setTimeout(() => {console.log(path)}, 10);
         }
         return returnValue;
       }
     }
 
-
     const editState = (e) => {
-      if (obstacles instanceof Array) {
-        var temp = [...obstacles];
-      } else {
-        var temp = [];
-      }
+      var temp = [...obstacles];
       console.log(temp);
       console.log(e.target.getAttribute('data-id'));
       for (var i = 0; i < temp.length; i++) {
         let val = temp[i];
-        if (val == e.target.getAttribute('data-id')) {
+        if (val == parseInt(e.target.getAttribute('data-id'))) {
           temp.splice(i, 1);
           setObstacles(temp);
-          e.target.className = "gridItem";
           return;
         }
       }
-      temp.push(e.target.getAttribute('data-id'));
+      temp.push(parseInt(e.target.getAttribute('data-id')));
       setObstacles(temp);
-      e.target.className = "gridItem obstacle";
     }
 
     const classes = makeStyles((theme) => ({
@@ -167,10 +161,15 @@ function MainWindow() {
         </Toolbar>
       </AppBar>
       
-      <Grid container spacing={3} margin={5}>
-        <Grid item style={{paddingTop: 30}} xs={2}>
-          <Grid container spacing={3}>
+      <Grid container spacing={3}>
+        <Grid item md={3} xs={0} />
+        <Grid item md={6}>
+        <Grid container padding={10} spacing={3}>
           <Grid item xs={12}>
+            <h1>Depth-First Search</h1>
+            <p>Depth-first search is a very common algorithm used in computer science. This algorithm will fully traverse a single path, backtrack on that path, and continue with this process. This depth-first search algorithm is recursively implemented.</p>
+          </Grid>
+          <Grid item xs={4}>
             <FormControl fullWidth>
             <TextField
             select
@@ -186,7 +185,7 @@ function MainWindow() {
             </TextField>
             </FormControl>
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={4}>
           <FormControl fullWidth>
               <TextField
               select
@@ -199,27 +198,33 @@ function MainWindow() {
                 <MenuItem value={value}>{value}</MenuItem>
                 ))}
             </TextField>
+          </FormControl>
+          </Grid>
+          <Grid item xs={4}>
+            <FormControl fullWidth>
+            <Button color="primary" variant="contained" sx={{height: 1}} onClick={dfsSearch}>DFS</Button>
             </FormControl>
           </Grid>
           <Grid item xs={12}>
-            <Button color="primary" variant="contained" sx={{width: 1}} onClick={dfsSearch}>DFS</Button>
+            <Alert sx={{textAlign: "center"}} severity={!running ?  "info": "warning"}>{!running ? "There are no algorithms running. Click on a square to toggle it as an obstacle." : "An algorithm is currently running."}</Alert>
           </Grid>
-          </Grid>
-        </Grid>
-        <Grid item xs={10}>
-        <h1>Click to add obstacles</h1>
-        <Alert sx={{textAlign: "center"}} severity={!running ?  "info": "warning"}>{!running ? "There are no algorithms running. Click on a square to toggle it as an obstacle." : "An algorithm is currently running."}</Alert>
-        <div id="grid" sx={{minHeight: 400}}>
-          {data.map((row, index) => (
-            <div>
-            {row.map(cellId => <div onClick={editState} className="gridItem" key={cellId} data-id={cellId}></div>)}
-            <br/>
+          <Grid item xs={12}>
+            <div id="grid" sx={{minHeight: 400, textAlign: "center"}}>
+              {data.map((row, index) => (
+                <div>
+                {row.map(cellId => <div onClick={editState}
+                className={`gridItem ${obstacles.includes(cellId) ? "obstacle" : ""}`}
+                style={{backgroundColor:
+                  cellId in path ? `rgb(0, ${(15-Math.min(rows, cols)) * path[cellId]}, ${255 - ((15-Math.min(rows, cols)) * path[cellId])})`: {}}}
+                key={cellId} data-id={cellId}></div>)}
+                <br/>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-          
+          </Grid>
+          </Grid>
         </Grid>
-        
+        <Grid item md={3} xs={0} />        
       </Grid>
       
 
