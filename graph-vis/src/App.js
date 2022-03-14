@@ -1,4 +1,4 @@
-import React from "react";
+import {useState, React } from "react";
 import ReactDOM from "react-dom";
 import MainWindow from './MainWindow';
 import { ThemeProvider, createTheme } from "@material-ui/core";
@@ -11,20 +11,23 @@ import "./App.css";
 
 
 function App() {
+  const hasWindow = typeof window !== 'undefined';
+  const [dimensions, setDimensions] = useState({
+    width: hasWindow ? window.innerWidth : null,
+    height: hasWindow ? window.innerHeight : null
+  });
+
   const theme = createTheme({
-    palette: {
-      mode: 'dark',
-    },
+
     typography: {
       fontFamily: 'Inter',
     },
   });
   
-
   return (
     <ThemeProvider theme={theme}>
     <div className="App">
-      <MainWindow/>
+      <MainWindow dims={dimensions}/>
     </div>
     </ThemeProvider>
     
