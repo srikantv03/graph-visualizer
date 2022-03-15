@@ -129,8 +129,6 @@ function DepthFirst() {
     return (
       <React.Fragment>      
       <Grid container sx={{height: 100}} spacing={3}>
-        <Grid item md={3} xs={0} />
-        <Grid item md={6}>
         <Grid container padding={10} spacing={3}>
           <Grid item xs={12}>
             <h1>Depth-First Search</h1>
@@ -190,15 +188,13 @@ function DepthFirst() {
             </div>
           </Grid>
           <Grid item xs={12}>
-          <Link to="depth-first" smooth={true} duration={500}>
+          <Link to="bredth-first" smooth={true} duration={500}>
             <IconButton aria-label="delete" size="small">
               <ArrowDropDownCircleIcon fontSize="small" />
             </IconButton>
           </Link>
           </Grid>
-          </Grid>
-        </Grid>
-        <Grid item md={3} xs={0} />        
+          </Grid> 
       </Grid>
     </React.Fragment>
     );
