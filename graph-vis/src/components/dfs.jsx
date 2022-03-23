@@ -2,13 +2,14 @@
 import React, {useState} from "react";
 import ReactDOM from "react-dom";
 import Graph from "react-graph-vis";
-import {AppBar, Toolbar, IconButton, Typography, Button, TextField, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Grid, FormHelperText} from '@material-ui/core';
+import {AppBar, Toolbar, IconButton, Typography, Button, TextField, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Grid, FormHelperText, Slider} from '@material-ui/core';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import ArrowDropDownCircleIcon from '@mui/icons-material/ArrowDropDownCircle';
 import { Alert } from "@mui/material";
 import { Link } from "react-scroll";
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+
 
 
 function DepthFirst() {
@@ -19,6 +20,7 @@ function DepthFirst() {
     const [end, setEnd] = useState(24);
     const [path, setPath] = useState({});
     const [running, setRunning] = useState(false);
+    const [animationSpeed, setAnimationSpeed] = useState(1);
 
     const handleRowChange = (e) => {
       setRows(e.target.value);
@@ -53,8 +55,6 @@ function DepthFirst() {
       setObstacles([]);
     }
 
-
-
     const dfsHelper = async (visited, x, y, m, n, v) => {
       const obst = [...obstacles];
       var cellId = x * (n + 1) + y;
@@ -81,7 +81,7 @@ function DepthFirst() {
             continue;
           }
           if (nx >= 0 && ny >= 0 && nx <= n && nx <= m && !visited[nx][ny] && obst.indexOf(nx * (n + 1) + ny) == -1) {
-            await sleep(200);
+            await sleep(1/animationSpeed * 250);
             returnValue = await dfsHelper(visited, nx, ny, m, n, v + 1);
             if (returnValue) {
               break;
@@ -90,7 +90,7 @@ function DepthFirst() {
         }
         visited[x][y] = false;
         if (!returnValue) {
-          await sleep(200);
+          await sleep(1/animationSpeed * 250);
           let npath = {...path}; 
           delete npath[0];
           setPath({...npath});
@@ -127,6 +127,12 @@ function DepthFirst() {
 
     const rowOptions = Array.from({length: 25}, (_, index) => index + 1);
     const colOptions = Array.from({length: 10}, (_, index) => index + 1);
+
+    const valuetext = (value) => {
+      setAnimationSpeed(value);
+      return `${value}x`;
+    }
+
     return (
       <React.Fragment>      
       <Grid container sx={{height: 100}} spacing={3}>
@@ -135,7 +141,7 @@ function DepthFirst() {
             <h2>Depth-First Search</h2>
             <p>Depth-first search is a very common algorithm used in computer science. This algorithm will fully traverse a single path, backtrack on that path, and continue with this process. This depth-first search algorithm is recursively implemented.</p>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={3}>
             <FormControl fullWidth>
             <TextField
             select
@@ -151,7 +157,7 @@ function DepthFirst() {
             </TextField>
             </FormControl>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={3}>
           <FormControl fullWidth>
               <TextField
               select
@@ -166,7 +172,20 @@ function DepthFirst() {
             </TextField>
           </FormControl>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={3}>
+          <Slider
+            aria-label="Animation Speed"
+            defaultValue={1}
+            getAriaValueText={valuetext}
+            step={0.25}
+            marks
+            min={0.25}
+            max={2}
+            valueLabelDisplay="on"
+          />
+          <p>Animation Speed</p>
+          </Grid>
+          <Grid item xs={3}>
             <Button color="primary" variant="contained" style={{height: "100%", width: "100%"}} onClick={dfsSearch} endIcon={<ArrowRightIcon fontSize="large" />}>DFS</Button>
           </Grid>
           <Grid item xs={12}>
