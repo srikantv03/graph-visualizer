@@ -8,6 +8,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ArrowDropDownCircleIcon from '@mui/icons-material/ArrowDropDownCircle';
 import { Alert } from "@mui/material";
 import { Link } from "react-scroll";
+import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 
 
 function DepthFirst() {
@@ -131,7 +132,7 @@ function DepthFirst() {
       <Grid container sx={{height: 100}} spacing={3}>
         <Grid container padding={10} spacing={3}>
           <Grid item xs={12}>
-            <h1>Depth-First Search</h1>
+            <h2>Depth-First Search</h2>
             <p>Depth-first search is a very common algorithm used in computer science. This algorithm will fully traverse a single path, backtrack on that path, and continue with this process. This depth-first search algorithm is recursively implemented.</p>
           </Grid>
           <Grid item xs={4}>
@@ -166,9 +167,7 @@ function DepthFirst() {
           </FormControl>
           </Grid>
           <Grid item xs={4}>
-            <FormControl fullWidth>
-            <Button color="primary" variant="contained" sx={{height: 1}} onClick={dfsSearch}>DFS</Button>
-            </FormControl>
+            <Button color="primary" variant="contained" style={{height: "100%", width: "100%"}} onClick={dfsSearch} endIcon={<ArrowRightIcon fontSize="large" />}>DFS</Button>
           </Grid>
           <Grid item xs={12}>
             <Alert sx={{textAlign: "center"}} severity={!running ?  "info": "warning"}>{!running ? "There are no algorithms running. Click on a square to toggle it as an obstacle." : "An algorithm is currently running."}</Alert>

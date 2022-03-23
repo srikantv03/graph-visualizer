@@ -1,4 +1,3 @@
-
 import React, {useState, useRef, useEffect} from "react";
 import ReactDOM from "react-dom";
 import Graph from "react-graph-vis";
@@ -7,11 +6,10 @@ TextField, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Grid,
 FormHelperText, Drawer, Box, List, ListItemText} from '@material-ui/core';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
-
+import Header from './components/header.jsx';
 import { Alert } from "@mui/material";
 import DepthFirst from "./components/dfs.jsx";
 import { Link } from "react-scroll";
-const drawerWidth = 240;
 
 function MainWindow(props) {
   const [current, setCurrent] = useState(1);
@@ -49,26 +47,14 @@ function MainWindow(props) {
   }, []);
   const handleOnScroll = () => {
     const a = document.body.clientHeight;
-    if (Math.round(sections * 2 * window.scrollY / a) != current) {
-      setCurrent(Math.round(sections * 2 * window.scrollY / a));
+    if (sections * Math.round(window.scrollY / a) != current) {
+      setCurrent(sections * Math.round(window.scrollY / a));
+      console.log(Math.round(window.scrollY / a));
     }
   }
     return (
       <React.Fragment>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            className={classes.menuButton}
-            color="inherit"
-          >
-            <MenuIcon />
-          </IconButton>
-          <Button onClick={async () => {await this.colorSwitch();}} />
-          <Typography className={classes.title} variant="h6" noWrap>
-            Graph Algorithm Visualization Tool
-          </Typography>
-        </Toolbar>
-      </AppBar>
+      <Header />
       <Grid container sx={{height: 100}} spacing={3}>
         <Grid item md={3} xs={0}>
           <Box 
@@ -78,7 +64,7 @@ function MainWindow(props) {
               {['Depth First Search', 'Breadth First Search'].map((text, index) => (
                 <ListItem key={text}>
                   <Link smooth={true} duration={500} to="bredth-first">
-                    <ListItemText sx={{fontWeight: index == current - 1 ? "bold" : "normal"}} primary={text} />
+                    <Typography style={{fontWeight:  index == current ? "bold": "normal"}}>{text} {index}</Typography>
                   </Link>
                 </ListItem>
               ))}
@@ -86,6 +72,7 @@ function MainWindow(props) {
           </Box>
         </Grid>
         <Grid item md={6}>
+
           <section style={sectStyle} id="depth-first">
             <DepthFirst />
           </section>

@@ -81,3 +81,31 @@ body::-webkit-scrollbar {
   border-width: 2px;
   background-color: #AFA;
 }
+
+#header-container {
+  position: relative;
+}
+
+#header-container canvas, #overlay {
+  position: absolute;
+}
+
+.header-div {
+  vertical-align: middle;
+  text-align: center;
+  display: table-cell;
+}
+
+.header-text {
+  font-size: 60px;
+}
+
+.secondary-header-text {
+  color: #575757;
+}
+
+.outer-header-div {
+  display: table;
+  height: 100vh;
+  width: 100vw;
+}
