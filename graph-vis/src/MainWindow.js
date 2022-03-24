@@ -9,6 +9,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Header from './components/header.jsx';
 import { Alert } from "@mui/material";
 import DepthFirst from "./components/dfs.jsx";
+import BreadthFirst from "./components/bfs.jsx";
 import { Link } from "react-scroll";
 
 function MainWindow(props) {
@@ -77,7 +78,7 @@ function MainWindow(props) {
             <DepthFirst />
           </section>
           <section style={sectStyle} id="bredth-first">
-            <DepthFirst />
+            <BreadthFirst />
           </section>    
         </Grid>
         <Grid item md={3} xs={0} />

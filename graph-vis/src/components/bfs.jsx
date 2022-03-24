@@ -12,7 +12,7 @@ import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 
 
 
-function DepthFirst() {
+export default function BreadthFirst() {
     const [cols, setCols] = useState(5);
     const [rows, setRows] = useState(5);
     const [obstacles, setObstacles] = useState([]);
@@ -39,9 +39,19 @@ function DepthFirst() {
       setObstacles([])
     }
 
-    const dfsSearch = async () => {
+    const bfsSearch = async () => {
       var m = cols - 1;
       var n = rows - 1;
+      setRunning(true)
+      var rval =  await bfsHelper(0, 0, m, n);
+      setRunning(false);
+    //   setObstacles([]);
+    }
+
+    const bfsHelper = async (x, y, m, n) => {
+      const obst = [...obstacles];
+      var dq = [];
+      dq.push([x, y, 0]);
       var visited = [];
       for (var i = 0; i < cols; i++) {
         visited.push([])
@@ -49,56 +59,40 @@ function DepthFirst() {
           visited[i].push(false);
         }
       }
-      setRunning(true)
-      var rval =  await dfsHelper(visited, 0, 0, m, n, 0);
-      setRunning(false);
-      setObstacles([]);
-    }
 
-    const dfsHelper = async (visited, x, y, m, n, v) => {
-      const obst = [...obstacles];
-      var cellId = x * (n + 1) + y;
-      if (x == m && y == n) {
-        return true;
-      } else {
-        visited[x][y] = true;
-        if (document.querySelector(`div[data-id='${cellId}']`) == null) {
-          console.log(cellId);
-          return false;
-        }
-
-        path[cellId] = v
-        setPath({...path});
-        console.log(path)
-
-        var nextMoves = [[x - 1, y],[x + 1, y], [x, y - 1], [x, y + 1]];
-        var returnValue = false;
-
-        for (var move of nextMoves) {
-          var nx = move[0]
-          var ny = move[1]
-          if (nx >= visited.length || ny >= visited[0].length) {
-            continue;
+      
+      while (dq.length > 0) {
+          const vals = dq.shift();
+          if (vals[0] == m && vals[1] == n) {
+              return true;
           }
-          if (nx >= 0 && ny >= 0 && nx <= n && nx <= m && !visited[nx][ny] && obst.indexOf(nx * (n + 1) + ny) == -1) {
-            await sleep(1/animationSpeed * 250);
-            returnValue = await dfsHelper(visited, nx, ny, m, n, v + 1);
-            if (returnValue) {
-              break;
-            }
+          var cellId = vals[0] * (n + 1) + vals[1];
+
+          visited[vals[0]][vals[1]] = true;
+          path[cellId] = vals[2];
+          setPath({...path});
+          console.log(path);
+
+          const nextMoves = [
+            [vals[0], vals[1] + 1],
+            [vals[0], vals[1] - 1],
+            [vals[0] + 1, vals[1]],
+            [vals[0] - 1, vals[1]]
+          ];
+
+          for (var move of nextMoves) {
+              const nx = move[0];
+              const ny = move[1];
+              if (nx >= 0 && ny >= 0 && nx <= m && ny <= n && !visited[nx][ny] && !obst.includes(cellId)) {
+                await sleep(1/animationSpeed * 250);
+                dq.push([nx, ny, vals[2] + 1]);
+              }
           }
-        }
-        visited[x][y] = false;
-        if (!returnValue) {
-          await sleep(1/animationSpeed * 250);
-          let npath = {...path}; 
-          delete npath[0];
-          setPath({...npath});
-          console.log(npath);
-          // setTimeout(() => {console.log(path)}, 10);
-        }
-        return returnValue;
       }
+      return false;
+      
+      
+
     }
 
     const editState = (e) => {
@@ -138,8 +132,8 @@ function DepthFirst() {
       <Grid container sx={{height: 100}} spacing={3}>
         <Grid container padding={10} spacing={3}>
           <Grid item xs={12}>
-            <h2>Depth-First Search</h2>
-            <p>Depth-first search is a very common algorithm used in computer science. This algorithm will fully traverse a single path, backtrack on that path, and continue with this process. This depth-first search algorithm is recursively implemented.</p>
+            <h2>Breadth-First Search</h2>
+            <p>Breadh-first search is another fundamental algorithm that allows us to traverse spaces of all kinds. In breadth-first search, we explore all options for our "next" move before moving to another node. BFS is commonly used in shortest-path algorithms.</p>
           </Grid>
           <Grid item xs={3}>
             <FormControl fullWidth>
@@ -186,7 +180,7 @@ function DepthFirst() {
           <p>Animation Speed</p>
           </Grid>
           <Grid item xs={3}>
-            <Button color="primary" variant="contained" style={{height: "100%", width: "100%"}} onClick={dfsSearch} endIcon={<ArrowRightIcon fontSize="large" />}>RUN ALGORITHM</Button>
+            <Button color="primary" variant="contained" style={{height: "100%", width: "100%"}} onClick={bfsSearch} endIcon={<ArrowRightIcon fontSize="large" />}>RUN ALGORITHM</Button>
           </Grid>
           <Grid item xs={12}>
             <Alert sx={{textAlign: "center"}} severity={!running ?  "info": "warning"}>{!running ? "There are no algorithms running. Click on a square to toggle it as an obstacle." : "An algorithm is currently running."}</Alert>
@@ -198,7 +192,7 @@ function DepthFirst() {
                 {row.map(cellId => <div onClick={editState}
                 className={`gridItem ${obstacles.includes(cellId) ? "obstacle" : ""}`}
                 style={{backgroundColor:
-                  cellId in path ? `rgb(0, ${(15-Math.min(rows, cols)) * path[cellId]}, ${255 - ((15-Math.min(rows, cols)) * path[cellId])})`: {}}}
+                  cellId in path ? `rgb(0, ${(30-Math.min(rows, cols)) * path[cellId]}, ${255 - ((30-Math.min(rows, cols)) * path[cellId])})`: {}}}
                 key={cellId} data-id={cellId}></div>)}
                 <br/>
                 </div>
@@ -217,6 +211,4 @@ function DepthFirst() {
     </React.Fragment>
     );
 }
- 
-export default DepthFirst;
       

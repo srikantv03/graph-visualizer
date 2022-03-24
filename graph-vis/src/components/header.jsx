@@ -120,7 +120,7 @@ function Header() {
             <div className="outer-header-div">
                 <div className="header-div">
                     <h1 className="header-text">Graph Algorithm Visualizer</h1>
-                    <h3 className="secondary-header-text">Made By: Srikant Vasudevan</h3>
+                    <h3 className="secondary-header-text">Srikant Vasudevan</h3>
                     <Grid item xs={12}>
                         <Button onClick={handleOpen} sx={{padding: 2}} color="primary" variant="outlined">
                             How to use
