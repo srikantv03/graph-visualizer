@@ -21,6 +21,7 @@ export default function BreadthFirst() {
     const [path, setPath] = useState({});
     const [running, setRunning] = useState(false);
     const [animationSpeed, setAnimationSpeed] = useState(1);
+    const [showNumbers, setShowNumbers] = useState(true);
 
     const handleRowChange = (e) => {
       setRows(e.target.value);
@@ -37,6 +38,7 @@ export default function BreadthFirst() {
 
     const clearGrid = () => {
       setObstacles([])
+      setPath({});
     }
 
     const bfsSearch = async () => {
@@ -59,7 +61,7 @@ export default function BreadthFirst() {
           visited[i].push(false);
         }
       }
-
+      visited[x][y] = true;
       
       while (dq.length > 0) {
           const vals = dq.shift();
@@ -68,7 +70,6 @@ export default function BreadthFirst() {
           }
           var cellId = vals[0] * (n + 1) + vals[1];
 
-          visited[vals[0]][vals[1]] = true;
           path[cellId] = vals[2];
           setPath({...path});
           console.log(path);
@@ -84,7 +85,10 @@ export default function BreadthFirst() {
               const nx = move[0];
               const ny = move[1];
               if (nx >= 0 && ny >= 0 && nx <= m && ny <= n && !visited[nx][ny] && !obst.includes(cellId)) {
+                console.log(nx);
+                console.log(ny);
                 await sleep(1/animationSpeed * 250);
+                visited[nx][ny] = true;
                 dq.push([nx, ny, vals[2] + 1]);
               }
           }
@@ -177,7 +181,7 @@ export default function BreadthFirst() {
             max={2}
             valueLabelDisplay="on"
           />
-          <p>Animation Speed</p>
+          {/* <p>Animation Speed</p> */}
           </Grid>
           <Grid item xs={3}>
             <Button color="primary" variant="contained" style={{height: "100%", width: "100%"}} onClick={bfsSearch} endIcon={<ArrowRightIcon fontSize="large" />}>RUN ALGORITHM</Button>
@@ -193,7 +197,13 @@ export default function BreadthFirst() {
                 className={`gridItem ${obstacles.includes(cellId) ? "obstacle" : ""}`}
                 style={{backgroundColor:
                   cellId in path ? `rgb(0, ${(30-Math.min(rows, cols)) * path[cellId]}, ${255 - ((30-Math.min(rows, cols)) * path[cellId])})`: {}}}
-                key={cellId} data-id={cellId}></div>)}
+                key={cellId} data-id={cellId}>
+
+                {/* {showNumbers && cellId in path ? `${path[cellId]}` : ""} */}
+                </div>
+                
+                )}
+                
                 <br/>
                 </div>
               ))}

@@ -2,17 +2,18 @@
 import React, {useState} from "react";
 import ReactDOM from "react-dom";
 import Graph from "react-graph-vis";
-import {AppBar, Toolbar, IconButton, Typography, Button, TextField, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Grid, FormHelperText, Slider} from '@material-ui/core';
+import {AppBar, Toolbar, IconButton, Typography, Button, Card, TextField, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Grid, FormHelperText, Slider} from '@material-ui/core';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import ArrowDropDownCircleIcon from '@mui/icons-material/ArrowDropDownCircle';
 import { Alert } from "@mui/material";
 import { Link } from "react-scroll";
+import "./../App.css";
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 
 
 
-function DepthFirst() {
+export default function DepthFirst() {
     const [cols, setCols] = useState(5);
     const [rows, setRows] = useState(5);
     const [obstacles, setObstacles] = useState([]);
@@ -91,11 +92,9 @@ function DepthFirst() {
         visited[x][y] = false;
         if (!returnValue) {
           await sleep(1/animationSpeed * 250);
-          let npath = {...path}; 
-          delete npath[0];
-          setPath({...npath});
-          console.log(npath);
-          // setTimeout(() => {console.log(path)}, 10);
+          path[cellId] = null;
+          setPath({...path});
+          setTimeout(() => {console.log(path)}, 10);
         }
         return returnValue;
       }
@@ -134,7 +133,8 @@ function DepthFirst() {
     }
 
     return (
-      <React.Fragment>      
+      <React.Fragment>
+      <div className="glass-card">
       <Grid container sx={{height: 100}} spacing={3}>
         <Grid container padding={10} spacing={3}>
           <Grid item xs={12}>
@@ -198,7 +198,7 @@ function DepthFirst() {
                 {row.map(cellId => <div onClick={editState}
                 className={`gridItem ${obstacles.includes(cellId) ? "obstacle" : ""}`}
                 style={{backgroundColor:
-                  cellId in path ? `rgb(0, ${(15-Math.min(rows, cols)) * path[cellId]}, ${255 - ((15-Math.min(rows, cols)) * path[cellId])})`: {}}}
+                  (cellId in path && path[cellId] != null) ? `rgb(0, ${(15-Math.min(rows, cols)) * path[cellId]}, ${255 - ((15-Math.min(rows, cols)) * path[cellId])})`: {}}}
                 key={cellId} data-id={cellId}></div>)}
                 <br/>
                 </div>
@@ -206,7 +206,7 @@ function DepthFirst() {
             </div>
           </Grid>
           <Grid item xs={12}>
-          <Link to="bredth-first" smooth={true} duration={500}>
+          <Link to="breadth-first" smooth={true} duration={500}>
             <IconButton aria-label="delete" size="small">
               <ArrowDropDownCircleIcon fontSize="small" />
             </IconButton>
@@ -214,9 +214,8 @@ function DepthFirst() {
           </Grid>
           </Grid> 
       </Grid>
+      </div>
     </React.Fragment>
     );
 }
- 
-export default DepthFirst;
       

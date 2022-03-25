@@ -18,8 +18,8 @@ const modalStyle = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 600,
-    height: 300,
+    width: "50vw",
+    height: "70vh",
     overflow: 'auto',
     bgcolor: 'background.paper',
     borderRadius: 8,
@@ -171,6 +171,26 @@ function Header() {
                                 <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                                     Searching in an empty matrix is kind of boring. There will always be a way to get to the end, whether it be traversing
                                     every element of the matrix, or simply going through the perimeter.
+                                    <br />
+                                    As of now, we have the following options for our matrix operations:
+                                    <ul>
+                                        <li><strong>Rows:</strong> This controls the number of rows in the matrix (max 10)</li>
+                                        <li><strong>Columns:</strong> This controls the number of columns in the matrix (max 10)</li>
+                                        <li><strong>Animation Speed:</strong> This controls the multiplier, from 0.25x to 2x of a speed of 4 operations/sec</li>
+                                        <li><strong>Show Numbers:</strong> If interested in the paths being traversed, a user could enable the number count, where each traversed grid item would display its ordering in its path.</li>
+                                    </ul>
+                                    In these modules, you are able to visualize a standard search through a partially blocked matrix using a specified method. A general rule of thumb: depth-first search is good to verify the existance
+                                    of a path and breadth-first search is good to find the shortest path.
+                                    <h3>Specialized Matrix Algorithms</h3>
+                                    In addition to the standard implementations of DFS and BFS, I have also added a few specialized implementations of these algorithms.
+                                    These implementations can be seen widely in competitive programming, interview problems, and even real-world applications.
+                                    <br />
+                                    The current specializations of DFS and BFS in this application are:
+                                    <ul>
+                                        <li><strong>Word Search:</strong> Searching for an ASCII string within a matrix only using standard vertical or horizontal movements</li>    
+                                        <li><strong>Dijkstra's Algorithm:</strong> Finding the shortest path traversal through a graph using BFS</li>
+                                    </ul> 
+
                                 </Typography>
                                 <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                                     <br/>
