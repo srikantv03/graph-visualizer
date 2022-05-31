@@ -58,10 +58,10 @@ export default function ParticleAnim() {
         },
         particles: {
           color: {
-            value: "#ababab",
+            value: "#c4c2c2",
           },
           links: {
-            color: "#707070",
+            color: "#c4c2c2",
             distance: 150,
             enable: true,
             opacity: 0.5,

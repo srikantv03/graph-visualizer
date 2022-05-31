@@ -8,11 +8,12 @@ import { fade, makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import Header from './components/header.jsx';
 import { Alert } from "@mui/material";
-import DepthFirst from "./components/dfs.jsx";
-import BreadthFirst from "./components/bfs.jsx";
+import DepthFirst from "./components/dfsAlgs/dfs.jsx";
+import BreadthFirst from "./components/bfsAlgs/bfs.jsx";
 import { Link } from "react-scroll";
 import GridSelect from "./components/gridSelect";
 import ParticleAnim from "./components/anim/particles";
+import WordSearchDFS from "./components/dfsAlgs/wordSearch.jsx";
 
 function MainWindow(props) {
   const [current, setCurrent] = useState(1);
@@ -61,7 +62,7 @@ function MainWindow(props) {
       <React.Fragment>
       <ParticleAnim />
       <Header/>
-      <GridSelect/>
+      {/* <GridSelect/> */}
       <Grid container sx={{height: 100}} spacing={3}>
         <Grid item md={3} xs={0}>
           <Box 
@@ -86,6 +87,9 @@ function MainWindow(props) {
           <section style={sectStyle} id="breadth-first">
             <BreadthFirst />
           </section>    
+          <section style={sectStyle} id="dfs-word-search">
+            <WordSearchDFS />
+          </section>
         </Grid>
         <Grid item md={3} xs={0} />
       </Grid>

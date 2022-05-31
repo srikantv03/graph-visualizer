@@ -1,6 +1,7 @@
 body {
   -ms-overflow-style: none;
-  scrollbar-width: none; /* Firefox */
+  scrollbar-width: none; 
+  font-family: "Helvetica";/* Firefox */
 }
 
 body::-webkit-scrollbar {
@@ -52,11 +53,13 @@ body::-webkit-scrollbar {
   height: 32px;
   border-radius: 6px;
   margin: 4px;
+  vertical-align: middle;
   background-color: #ebebeb;
   -moz-transition: background-color 0.2s linear;
   -o-transition: background-color 0.2s linear;
   -webkit-transition: background-color 0.2s linear;
   transition: background-color 0.2s linear;
+  padding: 0px;
 }
 
 #grid {
