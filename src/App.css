@@ -1,6 +1,7 @@
 body {
   -ms-overflow-style: none;
-  scrollbar-width: none; /* Firefox */
+  scrollbar-width: none; 
+  font-family: "Helvetica";/* Firefox */
 }
 
 body::-webkit-scrollbar {
@@ -52,11 +53,13 @@ body::-webkit-scrollbar {
   height: 32px;
   border-radius: 6px;
   margin: 4px;
+  vertical-align: middle;
   background-color: #ebebeb;
   -moz-transition: background-color 0.2s linear;
   -o-transition: background-color 0.2s linear;
   -webkit-transition: background-color 0.2s linear;
   transition: background-color 0.2s linear;
+  padding: 0px;
 }
 
 #grid {
@@ -108,4 +111,24 @@ body::-webkit-scrollbar {
   display: table;
   height: 100vh;
   width: 100vw;
+}
+
+.clickable-card {
+  border: 0px;
+  border-radius: 10px,;
+  box-shadow: 1;
+}
+
+.clickable-card:hover {
+  box-shadow: 5;
+}
+
+.glass-card {
+  background: rgba( 255, 255, 255, 0.05 );
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.05 );
+  backdrop-filter: blur( 5.5px );
+  -webkit-backdrop-filter: blur( 5.5px );
+  border-radius: 10px;
+  border: 1px solid rgba( 255, 255, 255, 0.05 );
+  padding: 25px
 }

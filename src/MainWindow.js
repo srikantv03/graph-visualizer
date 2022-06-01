@@ -8,8 +8,12 @@ import { fade, makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import Header from './components/header.jsx';
 import { Alert } from "@mui/material";
-import DepthFirst from "./components/dfs.jsx";
+import DepthFirst from "./components/dfsAlgs/dfs.jsx";
+import BreadthFirst from "./components/bfsAlgs/bfs.jsx";
 import { Link } from "react-scroll";
+import GridSelect from "./components/gridSelect";
+import ParticleAnim from "./components/anim/particles";
+import WordSearchDFS from "./components/dfsAlgs/wordSearch.jsx";
 
 function MainWindow(props) {
   const [current, setCurrent] = useState(1);
@@ -38,10 +42,8 @@ function MainWindow(props) {
   };
 
   useEffect(() => {
-    // subscribe event
     window.addEventListener("scroll", handleOnScroll);
     return () => {
-      // unsubscribe event
       window.removeEventListener("scroll", handleOnScroll);
     };
   }, []);
@@ -52,9 +54,15 @@ function MainWindow(props) {
       console.log(Math.round(window.scrollY / a));
     }
   }
+
+  const dataStyle={
+    position: "absolute"
+  }
     return (
       <React.Fragment>
-      <Header />
+      <ParticleAnim />
+      <Header/>
+      {/* <GridSelect/> */}
       <Grid container sx={{height: 100}} spacing={3}>
         <Grid item md={3} xs={0}>
           <Box 
@@ -63,7 +71,7 @@ function MainWindow(props) {
             <List>
               {['Depth First Search', 'Breadth First Search'].map((text, index) => (
                 <ListItem key={text}>
-                  <Link smooth={true} duration={500} to="bredth-first">
+                  <Link smooth={true} duration={500} to="breadth-first">
                     <Typography style={{fontWeight:  index == current ? "bold": "normal"}}>{text} {index}</Typography>
                   </Link>
                 </ListItem>
@@ -76,13 +84,15 @@ function MainWindow(props) {
           <section style={sectStyle} id="depth-first">
             <DepthFirst />
           </section>
-          <section style={sectStyle} id="bredth-first">
-            <DepthFirst />
+          <section style={sectStyle} id="breadth-first">
+            <BreadthFirst />
           </section>    
+          <section style={sectStyle} id="dfs-word-search">
+            <WordSearchDFS />
+          </section>
         </Grid>
         <Grid item md={3} xs={0} />
       </Grid>
-        
     </React.Fragment>
     );
 }

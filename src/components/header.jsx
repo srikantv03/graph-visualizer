@@ -11,6 +11,7 @@ import { Link } from "react-scroll";
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { integerPropType } from "@mui/utils";
 import "./../App.css";
+import Instructions from "./instructions";
 
 
 const modalStyle = {
@@ -18,8 +19,8 @@ const modalStyle = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 600,
-    height: 300,
+    width: "50vw",
+    height: "70vh",
     overflow: 'auto',
     bgcolor: 'background.paper',
     borderRadius: 8,
@@ -27,9 +28,7 @@ const modalStyle = {
     p: 4,
 };
 
-const dividerStyle ={
-    margin: 5
-}
+
 
 function Header() {
     const rows = 20;
@@ -120,7 +119,7 @@ function Header() {
             <div className="outer-header-div">
                 <div className="header-div">
                     <h1 className="header-text">Graph Algorithm Visualizer</h1>
-                    <h3 className="secondary-header-text">Made By: Srikant Vasudevan</h3>
+                    <h3 className="secondary-header-text">Srikant Vasudevan</h3>
                     <Grid item xs={12}>
                         <Button onClick={handleOpen} sx={{padding: 2}} color="primary" variant="outlined">
                             How to use
@@ -141,43 +140,7 @@ function Header() {
                                 {/*
                                     TODO: move the following instructions into the instructions component and use env to store the actual text
                                 */}
-                                <Typography id="modal-modal-title" variant="h6" component="h2">
-                                    Introduction:
-                                </Typography>
-                                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                                    Firstly, I'm glad you decided to give this application a shot. I have put a lot of effort into making
-                                    this application both fun to use, but also informative. Below, I have outlined how to use this visualizer
-                                    to maximize your learning experience!
-                                </Typography>
-                                <Divider sx={dividerStyle}/>
-                                <Typography id="modal-modal-title" variant="h6" component="h2">
-                                    Basic Use:
-                                </Typography>
-                                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                                    This visualizer currently has 2 algorithms:
-                                    <ul>
-                                        <li>Depth-first Search</li>
-                                        <li>Breadth-first Search</li>
-                                    </ul>
-                                    Each of these algorithms occupies a section of the application and is intended to be explored modularly.
-                                    For each algorithm, a group of options is presented to the user, mostly relating to the structure of a matrix
-                                    or graph. These options will allow the user to mess around with the algorithm, test edge cases, and understand
-                                    the core of how the algorithm works in a visual context.
-                                </Typography>
-                                <Divider sx={dividerStyle}/>
-                                <Typography id="modal-modal-title" variant="h6" component="h2">
-                                    Matrix-based Algorithms:
-                                </Typography>
-                                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                                    Searching in an empty matrix is kind of boring. There will always be a way to get to the end, whether it be traversing
-                                    every element of the matrix, or simply going through the perimeter.
-                                </Typography>
-                                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                                    <br/>
-                                    Don't forget to have fun with it!
-                                    <br/>
-                                    Srikant Vasudevan :)
-                                </Typography>
+                                <Instructions />
                             </Box>
                         </Modal>            
                     </div>

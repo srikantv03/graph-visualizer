@@ -19,6 +19,7 @@
     "react-konva": "^17.0.2-5",
     "react-scripts": "4.0.3",
     "react-scroll": "^1.8.6",
+    "react-tsparticles": "^1.42.4",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
