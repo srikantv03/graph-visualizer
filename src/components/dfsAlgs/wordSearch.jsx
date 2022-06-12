@@ -67,18 +67,18 @@ export default function WordSearchDFS() {
   };
 
   const dfsSearch = async () => {
-    var visited = [];
-    for (var i = 0; i < cols; i++) {
+    let visited = [];
+    for (let i = 0; i < cols; i++) {
       visited.push([]);
-      for (var j = 0; j < rows; j++) {
+      for (let j = 0; j < rows; j++) {
         visited[i].push(false);
       }
     }
     setRunning(true);
-    for (var i = 0; i < rows; i++) {
-      for (var j = 0; j < cols; j++) {
+    for (let i = 0; i < rows; i++) {
+      for (let j = 0; j < cols; j++) {
         if (gridData[i][j] == searchString[0]) {
-          var rval = await dfsHelper(visited, i, j, 0);
+          let rval = await dfsHelper(visited, i, j, 0);
           if (rval) {
             setRunning(false);
             return rval;
@@ -93,14 +93,18 @@ export default function WordSearchDFS() {
   };
 
   const dfsHelper = async (visited, x, y, v) => {
-    var m = cols - 1;
-    var n = rows - 1;
+    let m = cols - 1;
+    let n = rows - 1;
     if (v == searchString.length - 1) {
+      let cellId = x * (n + 1) + y;
+      path[cellId] = v;
+      setPath({ ...path });
+
       return true;
     } else {
       console.log(v);
       const searchLetter = searchString[v + 1];
-      var cellId = x * (n + 1) + y;
+      let cellId = x * (n + 1) + y;
       visited[x][y] = true;
 
       if (document.querySelector(`div[data-id='${cellId}']`) == null) {
@@ -111,17 +115,17 @@ export default function WordSearchDFS() {
       setPath({ ...path });
       // console.log(path);
 
-      var nextMoves = [
+      let nextMoves = [
         [x - 1, y],
         [x + 1, y],
         [x, y - 1],
         [x, y + 1],
       ];
-      var returnValue = false;
+      let returnValue = false;
 
-      for (var move of nextMoves) {
-        var nx = move[0];
-        var ny = move[1];
+      for (let move of nextMoves) {
+        let nx = move[0];
+        let ny = move[1];
         if (nx >= visited.length || ny >= visited[0].length) {
           continue;
         }
@@ -166,10 +170,10 @@ export default function WordSearchDFS() {
   };
 
   const generateGrid = () => {
-    var newGrid = [];
-    for (var i = 0; i < cols; i++) {
+    let newGrid = [];
+    for (let i = 0; i < cols; i++) {
       newGrid.push([]);
-      for (var j = 0; j < rows; j++) {
+      for (let j = 0; j < rows; j++) {
         newGrid[i].push(randomLetter());
       }
     }
@@ -177,11 +181,11 @@ export default function WordSearchDFS() {
     console.log(newGrid);
   };
 
-  var data = [];
+  let data = [];
 
-  for (var i = 0; i < cols; i++) {
+  for (let i = 0; i < cols; i++) {
     data.push([]);
-    for (var j = 0; j < rows; j++) {
+    for (let j = 0; j < rows; j++) {
       data[i].push(rows * i + j);
     }
   }
