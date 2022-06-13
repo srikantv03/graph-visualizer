@@ -13,19 +13,20 @@ export default function ParticleAnim() {
 
   return (
     <Particles
-      style={{zIndex: -100}}
+      style={{ zIndex: -100 }}
       id="tsparticles"
       init={particlesInit}
       loaded={particlesLoaded}
       options={{
         background: {
           color: {
-            value: 'linear-gradient(45deg, rgba(37,194,235,1) 0%, rgba(53,50,254,1) 100%)'
+            value:
+              "linear-gradient(45deg, rgba(37,194,235,1) 0%, rgba(53,50,254,1) 100%)",
           },
         },
         fullScreen: {
-            enable: true,
-            zIndex: -100
+          enable: true,
+          zIndex: -100,
         },
         fpsLimit: 120,
         interactivity: {
@@ -86,7 +87,7 @@ export default function ParticleAnim() {
             value: 80,
           },
           opacity: {
-            value: 0.5,
+            value: 0.3,
           },
           shape: {
             type: "circle",
@@ -100,4 +101,4 @@ export default function ParticleAnim() {
       }}
     />
   );
-};
+}

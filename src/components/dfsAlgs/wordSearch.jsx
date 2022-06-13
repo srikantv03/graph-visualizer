@@ -66,6 +66,22 @@ export default function WordSearchDFS() {
     setObstacles([]);
   };
 
+  const getPathColors = (cellId) => {
+    if (cellId in path && path[cellId] != null) {
+      let color = "black";
+      if ((15 - Math.min(rows, cols)) * path[cellId] < 128) {
+        color = "white";
+      }
+      return {
+        backgroundColor: `rgb(0, ${
+          (15 - Math.min(rows, cols)) * path[cellId]
+        }, ${255 - (15 - Math.min(rows, cols)) * path[cellId]})`,
+        color: color,
+      };
+    }
+    return { color: "black" };
+  };
+
   const dfsSearch = async () => {
     let visited = [];
     for (let i = 0; i < cols; i++) {
@@ -309,17 +325,7 @@ export default function WordSearchDFS() {
                     {row.map((cellId, rowIndex) => (
                       <div
                         className={`gridItem`}
-                        style={{
-                          backgroundColor:
-                            cellId in path && path[cellId] != null
-                              ? `rgb(0, ${
-                                  (15 - Math.min(rows, cols)) * path[cellId]
-                                }, ${
-                                  255 -
-                                  (15 - Math.min(rows, cols)) * path[cellId]
-                                })`
-                              : {},
-                        }}
+                        style={getPathColors(cellId)}
                         key={cellId}
                         data-id={cellId}
                       >
