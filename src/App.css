@@ -1,7 +1,13 @@
 body {
   -ms-overflow-style: none;
-  scrollbar-width: none; 
-  font-family: "Helvetica";/* Firefox */
+  scrollbar-width: none;
+  font-family: "Helvetica"; /* Firefox */
+  background: rgb(39, 101, 185);
+  background: linear-gradient(
+    140deg,
+    rgba(39, 101, 185, 1) 0%,
+    rgba(0, 147, 255, 1) 100%
+  );
 }
 
 body::-webkit-scrollbar {
@@ -67,29 +73,36 @@ body::-webkit-scrollbar {
 }
 
 .obstacle {
-  background: rgb(70,70,70);
-  background: linear-gradient(45deg, rgba(70,70,70,1) 0%, rgba(0,0,0,1) 100%);
+  background: rgb(70, 70, 70);
+  background: linear-gradient(
+    45deg,
+    rgba(70, 70, 70, 1) 0%,
+    rgba(0, 0, 0, 1) 100%
+  );
 }
 
 .gridItem.pathObject {
-  background: rgb(9,115,121);
-  background: linear-gradient(45deg, rgba(9,115,121,1) 0%, rgba(0,212,255,1) 100%);
-  
+  background: rgb(9, 115, 121);
+  background: linear-gradient(
+    45deg,
+    rgba(9, 115, 121, 1) 0%,
+    rgba(0, 212, 255, 1) 100%
+  );
 }
 
-.highlight
-{
+.highlight {
   width: 30px;
   height: 30px;
   border-width: 2px;
-  background-color: #AFA;
+  background-color: #afa;
 }
 
 #header-container {
   position: relative;
 }
 
-#header-container canvas, #overlay {
+#header-container canvas,
+#overlay {
   position: absolute;
 }
 
@@ -100,11 +113,16 @@ body::-webkit-scrollbar {
 }
 
 .header-text {
-  font-size: 60px;
+  font-size: 75px;
+  color: white;
+  -webkit-animation: glow 1s ease-in-out infinite alternate;
+  -moz-animation: glow 1s ease-in-out infinite alternate;
+  animation: glow 1s ease-in-out infinite alternate;
 }
 
 .secondary-header-text {
-  color: #575757;
+  color: #cccccc;
+  font-size: 30px;
 }
 
 .outer-header-div {
@@ -115,7 +133,7 @@ body::-webkit-scrollbar {
 
 .clickable-card {
   border: 0px;
-  border-radius: 10px,;
+  border-radius: 10px;
   box-shadow: 1;
 }
 
@@ -124,11 +142,23 @@ body::-webkit-scrollbar {
 }
 
 .glass-card {
-  background: rgba( 255, 255, 255, 0.05 );
-  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.05 );
-  backdrop-filter: blur( 5.5px );
-  -webkit-backdrop-filter: blur( 5.5px );
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
+  backdrop-filter: blur(5.5px);
+  -webkit-backdrop-filter: blur(5.5px);
   border-radius: 10px;
-  border: 1px solid rgba( 255, 255, 255, 0.05 );
-  padding: 25px
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 25px;
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #03b6fc,
+      0 0 40px #03b6fc, 0 0 50px #03b6fc, 0 0 60px #03b6fc, 0 0 70px #03b6fc;
+  }
+
+  to {
+    text-shadow: 0 0 20px #fff, 0 0 30px #0ca2e8, 0 0 40px #0ca2e8,
+      0 0 50px #0ca2e8, 0 0 60px #0ca2e8, 0 0 70px #0ca2e8, 0 0 80px #0ca2e8;
+  }
 }
