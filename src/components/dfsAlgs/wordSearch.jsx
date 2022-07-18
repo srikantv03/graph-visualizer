@@ -276,7 +276,6 @@ export default function WordSearchDFS() {
                 max={2}
                 valueLabelDisplay="on"
               />
-              <p>Animation Speed</p>
             </Grid>
             <Grid item xs={4}>
               <TextField

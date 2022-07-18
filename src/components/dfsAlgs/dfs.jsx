@@ -128,12 +128,12 @@ export default function DepthFirst(props) {
           obst.indexOf(nx * (n + 1) + ny) == -1
         ) {
           await sleep((1 / animationSpeed) * 250);
-
-          returnValue = await dfsHelper(visited, nx, ny, m, n, v + 1);
           props.addLog({
             severity: returnValue ? "success" : "warning",
             details: `(${nx}, ${ny})`,
           });
+          returnValue = await dfsHelper(visited, nx, ny, m, n, v + 1);
+
           if (returnValue) {
             break;
           }
@@ -244,7 +244,6 @@ export default function DepthFirst(props) {
                 max={2}
                 valueLabelDisplay="on"
               />
-              <p>Animation Speed</p>
             </Grid>
             <Grid item xs={3}>
               <Button

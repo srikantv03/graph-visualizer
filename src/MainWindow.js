@@ -74,7 +74,8 @@ function MainWindow(props) {
   const addLog = (newLog) => {
     let logs = [...stateLogs];
     logs.push(newLog);
-    // setStateLogs(logs);
+    console.log(logs);
+    setStateLogs(logs);
   };
 
   const clearLogs = () => {
