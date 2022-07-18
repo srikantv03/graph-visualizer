@@ -281,6 +281,7 @@ export default function WordSearchDFS() {
             <Grid item xs={4}>
               <TextField
                 sx={optionStyle}
+                style={{ height: "100%", width: "100%" }}
                 variant="outlined"
                 label="Search String"
                 onChange={handleSearchWordChange}
@@ -289,6 +290,7 @@ export default function WordSearchDFS() {
             <Grid item xs={4}>
               <Button
                 sx={optionStyle}
+                style={{ height: "100%", width: "100%" }}
                 color="secondary"
                 variant="contained"
                 onClick={generateGrid}
@@ -300,6 +302,7 @@ export default function WordSearchDFS() {
             <Grid item xs={4}>
               <Button
                 sx={optionStyle}
+                style={{ height: "100%", width: "100%" }}
                 color="primary"
                 variant="contained"
                 onClick={dfsSearch}
