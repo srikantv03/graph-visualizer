@@ -115,9 +115,6 @@ body::-webkit-scrollbar {
 .header-text {
   font-size: 75px;
   color: white;
-  -webkit-animation: glow 1s ease-in-out infinite alternate;
-  -moz-animation: glow 1s ease-in-out infinite alternate;
-  animation: glow 1s ease-in-out infinite alternate;
 }
 
 .secondary-header-text {
@@ -149,16 +146,4 @@ body::-webkit-scrollbar {
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.05);
   padding: 25px;
-}
-
-@keyframes glow {
-  from {
-    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #03b6fc,
-      0 0 40px #03b6fc, 0 0 50px #03b6fc, 0 0 60px #03b6fc, 0 0 70px #03b6fc;
-  }
-
-  to {
-    text-shadow: 0 0 20px #fff, 0 0 30px #0ca2e8, 0 0 40px #0ca2e8,
-      0 0 50px #0ca2e8, 0 0 60px #0ca2e8, 0 0 70px #0ca2e8, 0 0 80px #0ca2e8;
-  }
 }

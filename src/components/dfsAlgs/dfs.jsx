@@ -25,8 +25,9 @@ import { Alert } from "@mui/material";
 import { Link } from "react-scroll";
 import "./../../App.css";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
+import { PropaneSharp } from "@mui/icons-material";
 
-export default function DepthFirst() {
+export default function DepthFirst(props) {
   const [cols, setCols] = useState(5);
   const [rows, setRows] = useState(5);
   const [obstacles, setObstacles] = useState([]);
@@ -103,6 +104,7 @@ export default function DepthFirst() {
       path[cellId] = v;
       setPath({ ...path });
 
+      setTimeout(() => {}, 1000);
       var nextMoves = [
         [x - 1, y],
         [x + 1, y],
@@ -126,7 +128,12 @@ export default function DepthFirst() {
           obst.indexOf(nx * (n + 1) + ny) == -1
         ) {
           await sleep((1 / animationSpeed) * 250);
+          props.addLog({
+            severity: returnValue ? "success" : "warning",
+            details: `(${nx}, ${ny})`,
+          });
           returnValue = await dfsHelper(visited, nx, ny, m, n, v + 1);
+
           if (returnValue) {
             break;
           }
@@ -138,6 +145,7 @@ export default function DepthFirst() {
         path[cellId] = null;
         setPath({ ...path });
       }
+
       return returnValue;
     }
   };
@@ -236,11 +244,11 @@ export default function DepthFirst() {
                 max={2}
                 valueLabelDisplay="on"
               />
-              <p>Animation Speed</p>
             </Grid>
             <Grid item xs={3}>
               <Button
                 sx={optionStyle}
+                style={{ height: "100%", width: "100%" }}
                 color="primary"
                 variant="contained"
                 onClick={dfsSearch}
@@ -262,7 +270,7 @@ export default function DepthFirst() {
             <Grid item xs={12}>
               <div id="grid" sx={{ minHeight: 400, textAlign: "center" }}>
                 {data.map((row, index) => (
-                  <div>
+                  <div key={index}>
                     {row.map((cellId) => (
                       <div
                         onClick={editState}
