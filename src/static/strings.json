@@ -1,0 +1,12 @@
+{
+  "HEADER_TITLE": "Graph Algorithm Visualizer",
+  "SECONDARY_TITLE": "Srikant Vasudevan",
+  "HTU_BUTTON": "How To Use",
+  "SRC_BUTTON": "Source Code",
+  "RUN_BUTTON": "Run Algorithm",
+  "GRID_RANDOM_BUTTON": "Randomize Grid",
+
+  "DFS_DESCRIPTION": "Depth-first search is a very common algorithm used in computer science. This algorithm will fully traverse a single path, backtrack on that path, and continue with this process. This depth-first search algorithm is recursively implemented.",
+  "BFS_DESCRIPTION": "Breadh-first search is another fundamental algorithm that allows us to traverse spaces of all kinds. In breadth-first search, we explore all options for our \"next\" move before moving to another node. BFS is commonly used in shortest-path algorithms. This algorithm is iteratively implemented.",
+  "DFS_WS_DESCRIPTION": "This is an implementation of a DFS traversal where we search for a string in a graph of characters."
+}

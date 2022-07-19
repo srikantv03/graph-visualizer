@@ -1,3 +1,4 @@
+const strings = require("./../../static/strings.json");
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import Graph from "react-graph-vis";
@@ -226,10 +227,7 @@ export default function WordSearchDFS() {
           <Grid container padding={10} spacing={3}>
             <Grid item xs={12}>
               <h2>DFS Word Search</h2>
-              <p>
-                This is an implementation of a DFS traversal where we search for
-                a string in a graph of characters.
-              </p>
+              <p>{strings.DFS_WS_DESCRIPTION}</p>
             </Grid>
             <Grid item xs={4}>
               <FormControl fullWidth>
@@ -295,7 +293,7 @@ export default function WordSearchDFS() {
                 onClick={generateGrid}
                 endIcon={<ArrowRightIcon fontSize="large" />}
               >
-                RANDOM GRID
+                {strings.GRID_RANDOM_BUTTON}
               </Button>
             </Grid>
             <Grid item xs={4}>
@@ -307,7 +305,7 @@ export default function WordSearchDFS() {
                 onClick={dfsSearch}
                 endIcon={<ArrowRightIcon fontSize="large" />}
               >
-                RUN ALGORITHM
+                {strings.RUN_BUTTON}
               </Button>
             </Grid>
             <Grid item xs={12}>

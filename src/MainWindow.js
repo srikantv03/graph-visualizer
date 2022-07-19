@@ -1,3 +1,4 @@
+const strings = require("static/strings.json");
 import React, { useState, useRef, useEffect } from "react";
 import ReactDOM from "react-dom";
 import Graph from "react-graph-vis";

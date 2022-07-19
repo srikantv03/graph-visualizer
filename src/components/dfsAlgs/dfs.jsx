@@ -1,3 +1,4 @@
+const strings = require("./../../static/strings.json");
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import Graph from "react-graph-vis";
@@ -192,12 +193,7 @@ export default function DepthFirst(props) {
           <Grid container padding={10} spacing={3}>
             <Grid item xs={12}>
               <h2>Depth-First Search</h2>
-              <p>
-                Depth-first search is a very common algorithm used in computer
-                science. This algorithm will fully traverse a single path,
-                backtrack on that path, and continue with this process. This
-                depth-first search algorithm is recursively implemented.
-              </p>
+              <p>{strings.DFS_DESCRIPTION}</p>
             </Grid>
             <Grid item xs={3}>
               <FormControl fullWidth>
@@ -254,7 +250,7 @@ export default function DepthFirst(props) {
                 onClick={dfsSearch}
                 endIcon={<ArrowRightIcon fontSize="large" />}
               >
-                RUN ALGORITHM
+                {strings.RUN_BUTTON}
               </Button>
             </Grid>
             <Grid item xs={12}>
