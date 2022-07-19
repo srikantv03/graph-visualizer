@@ -2,12 +2,6 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
   font-family: "Helvetica"; /* Firefox */
-  background: rgb(39, 101, 185);
-  background: linear-gradient(
-    140deg,
-    rgba(39, 101, 185, 1) 0%,
-    rgba(0, 147, 255, 1) 100%
-  );
 }
 
 body::-webkit-scrollbar {
@@ -57,7 +51,9 @@ body::-webkit-scrollbar {
   display: inline-block;
   width: 32px;
   height: 32px;
+  line-height: 32px;
   border-radius: 6px;
+  font-size: 15px;
   margin: 4px;
   vertical-align: middle;
   background-color: #ebebeb;
@@ -114,12 +110,12 @@ body::-webkit-scrollbar {
 
 .header-text {
   font-size: 75px;
-  color: white;
+  color: black;
 }
 
 .secondary-header-text {
-  color: #cccccc;
   font-size: 30px;
+  color: black;
 }
 
 .outer-header-div {

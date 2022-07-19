@@ -1,31 +1,20 @@
-const strings = require("./../../static/strings.json");
 import React, { useState } from "react";
-import ReactDOM from "react-dom";
-import Graph from "react-graph-vis";
 import {
-  AppBar,
-  Toolbar,
   IconButton,
-  Typography,
   Button,
-  Card,
   TextField,
   FormControl,
-  InputLabel,
   MenuItem,
-  Select,
-  SelectChangeEvent,
   Grid,
-  FormHelperText,
   Slider,
 } from "@material-ui/core";
-import { fade, makeStyles } from "@material-ui/core/styles";
-import MenuIcon from "@material-ui/icons/Menu";
 import ArrowDropDownCircleIcon from "@mui/icons-material/ArrowDropDownCircle";
 import { Alert } from "@mui/material";
 import { Link } from "react-scroll";
 import "./../../App.css";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
+
+const strings = require("./../../static/strings.json");
 
 export default function WordSearchDFS() {
   const [cols, setCols] = useState(5);

@@ -1,44 +1,22 @@
-const strings = require("static/strings.json");
-import React, { useState, useRef, useEffect } from "react";
-import ReactDOM from "react-dom";
-import Graph from "react-graph-vis";
+import React, { useState } from "react";
 import {
-  AppBar,
-  Toolbar,
-  IconButton,
   ListItem,
-  ListItemIcon,
-  Typography,
-  Button,
-  TextField,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
   Grid,
-  FormHelperText,
-  Drawer,
-  Box,
   List,
   ListItemText,
-  ListItemButton,
   Divider,
   Tab,
   Tabs,
 } from "@material-ui/core";
-import { fade, makeStyles } from "@material-ui/core/styles";
-import MenuIcon from "@material-ui/icons/Menu";
+import { makeStyles } from "@material-ui/core/styles";
 import Header from "./components/header.jsx";
-import { Alert } from "@mui/material";
 import DepthFirst from "./components/dfsAlgs/dfs.jsx";
 import BreadthFirst from "./components/bfsAlgs/bfs.jsx";
-import { Link } from "react-scroll";
-import GridSelect from "./components/gridSelect";
-import ParticleAnim from "./components/anim/particles";
 import WordSearchDFS from "./components/dfsAlgs/wordSearch.jsx";
 import StickyBox from "react-sticky-box";
 import Logs from "./components/logs.jsx";
+
+const strings = require("./static/strings.json");
 
 function MainWindow(props) {
   const [current, setCurrent] = useState(1);
