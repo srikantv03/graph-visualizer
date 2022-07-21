@@ -13,6 +13,7 @@ import Header from "./components/header.jsx";
 import DepthFirst from "./components/dfsAlgs/dfs.jsx";
 import BreadthFirst from "./components/bfsAlgs/bfs.jsx";
 import WordSearchDFS from "./components/dfsAlgs/wordSearch.jsx";
+import BreadthFirstShortest from "./components/bfsAlgs/bfsShortest.jsx";
 import StickyBox from "react-sticky-box";
 import Logs from "./components/logs.jsx";
 
@@ -160,6 +161,9 @@ function MainWindow(props) {
             </section>
             <section style={sectStyle} id="dfs-word-search">
               <WordSearchDFS />
+            </section>
+            <section style={sectStyle} id="bfs-shortest-path">
+              <BreadthFirstShortest />
             </section>
           </Grid>
         </Grid>
