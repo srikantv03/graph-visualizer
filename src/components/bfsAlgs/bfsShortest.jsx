@@ -211,146 +211,155 @@ export default function BreadthFirstShortest() {
   return (
     <div className="glass-card">
       <Grid container sx={{ height: 100 }} spacing={3}>
-        <Grid container padding={10} spacing={3}>
-          <Grid item xs={12}>
-            <h2>Breadth-First Search Shortest Path</h2>
-            <p>{strings.BFS_DESCRIPTION}</p>
-          </Grid>
-          <Grid item xs={3}>
-            <FormControl fullWidth>
-              <TextField
-                select
-                id="row-select"
-                value={rows}
-                variant="outlined"
-                label="Rows"
-                onChange={handleRowChange}
+        <Grid item xs={4}>
+          <div style={{ verticalAlign: "middle", textAlign: "center" }}>
+            <Grid container sx={{ height: 100 }} spacing={3}>
+              <Grid item xs={12}>
+                <h1>Breadth-First Search Shortest Path</h1>
+                <p className="subtext">{strings.BFS_DESCRIPTION}</p>
+              </Grid>
+              <Grid item xs={6}>
+                <FormControl fullWidth>
+                  <TextField
+                    select
+                    id="row-select"
+                    value={rows}
+                    variant="outlined"
+                    label="Rows"
+                    onChange={handleRowChange}
+                  >
+                    {rowOptions.map((value) => (
+                      <MenuItem value={value}>{value}</MenuItem>
+                    ))}
+                  </TextField>
+                </FormControl>
+              </Grid>
+              <Grid item xs={6}>
+                <FormControl fullWidth>
+                  <TextField
+                    select
+                    id="col-select"
+                    label="Columns"
+                    variant="outlined"
+                    value={cols}
+                    onChange={handleColsChange}
+                  >
+                    {colOptions.map((value) => (
+                      <MenuItem value={value}>{value}</MenuItem>
+                    ))}
+                  </TextField>
+                </FormControl>
+              </Grid>
+              <Grid item xs={6}>
+                <TextField
+                  style={{ height: "100%", width: "100%" }}
+                  variant="outlined"
+                  label="Generate Obstacles"
+                  onChange={handleRogChange}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <Button
+                  color="primary"
+                  variant="contained"
+                  style={{ height: "100%", width: "100%" }}
+                  onClick={generateRandomObstacles}
+                  endIcon={<ArrowRightIcon fontSize="large" />}
+                >
+                  {"rng"}
+                </Button>
+              </Grid>
+              <Grid item xs={12}>
+                <Slider
+                  aria-label="Animation Speed"
+                  defaultValue={1}
+                  getAriaValueText={valuetext}
+                  step={0.25}
+                  marks
+                  min={0.25}
+                  max={2}
+                  valueLabelDisplay="on"
+                />
+                {/* <p>Animation Speed</p> */}
+              </Grid>
+              <Grid item xs={12}>
+                <Alert
+                  sx={{ textAlign: "center" }}
+                  severity={!running ? "info" : "warning"}
+                >
+                  {!running
+                    ? "There are no algorithms running. Click on a square to toggle it as an obstacle."
+                    : "An algorithm is currently running."}
+                </Alert>
+              </Grid>
+              <Grid item xs={12}>
+                <Button
+                  color="primary"
+                  variant="contained"
+                  style={{ height: "60px", width: "100%" }}
+                  onClick={bfsSearch}
+                  endIcon={<ArrowRightIcon fontSize="large" />}
+                >
+                  {strings.RUN_BUTTON}
+                </Button>
+              </Grid>
+            </Grid>
+          </div>
+        </Grid>
+        <Grid item xs={8}>
+          <Grid container padding={10} spacing={3}>
+            <Grid item xs={12}>
+              <ToggleButtonGroup
+                value={placingState}
+                exclusive
+                onChange={handlePlacingStateChange}
+                aria-label="text alignment"
               >
-                {rowOptions.map((value) => (
-                  <MenuItem value={value}>{value}</MenuItem>
-                ))}
-              </TextField>
-            </FormControl>
-          </Grid>
-          <Grid item xs={3}>
-            <FormControl fullWidth>
-              <TextField
-                select
-                id="col-select"
-                label="Columns"
-                variant="outlined"
-                value={cols}
-                onChange={handleColsChange}
-              >
-                {colOptions.map((value) => (
-                  <MenuItem value={value}>{value}</MenuItem>
-                ))}
-              </TextField>
-            </FormControl>
-          </Grid>
-          <Grid item xs={3}>
-            <Slider
-              aria-label="Animation Speed"
-              defaultValue={1}
-              getAriaValueText={valuetext}
-              step={0.25}
-              marks
-              min={0.25}
-              max={2}
-              valueLabelDisplay="on"
-            />
-            {/* <p>Animation Speed</p> */}
-          </Grid>
-          <Grid item xs={3}>
-            <Button
-              color="primary"
-              variant="contained"
-              style={{ height: "100%", width: "100%" }}
-              onClick={bfsSearch}
-              endIcon={<ArrowRightIcon fontSize="large" />}
-            >
-              {strings.RUN_BUTTON}
-            </Button>
-          </Grid>
-          <Grid item xs={2}>
-            <TextField
-              style={{ height: "100%", width: "100%" }}
-              variant="outlined"
-              label="Search String"
-              onChange={handleRogChange}
-            />
-          </Grid>
-          <Grid item xs={2}>
-            <Button
-              color="primary"
-              variant="contained"
-              style={{ height: "100%", width: "100%" }}
-              onClick={generateRandomObstacles}
-              endIcon={<ArrowRightIcon fontSize="large" />}
-            >
-              {"rng"}
-            </Button>
-          </Grid>
-          <Grid item xs={8}>
-            <ToggleButtonGroup
-              value={placingState}
-              exclusive
-              onChange={handlePlacingStateChange}
-              aria-label="text alignment"
-            >
-              <ToggleButton value="start" aria-label="left aligned">
-                Set Starting Point
-              </ToggleButton>
-              <ToggleButton value="obstacles" aria-label="centered">
-                Set Obstacles
-              </ToggleButton>
-              <ToggleButton value="end" aria-label="right aligned">
-                Set Ending Point
-              </ToggleButton>
-            </ToggleButtonGroup>
-          </Grid>
+                <ToggleButton value="start" aria-label="left aligned">
+                  Set Starting Point
+                </ToggleButton>
+                <ToggleButton value="obstacles" aria-label="centered">
+                  Set Obstacles
+                </ToggleButton>
+                <ToggleButton value="end" aria-label="right aligned">
+                  Set Ending Point
+                </ToggleButton>
+              </ToggleButtonGroup>
+            </Grid>
+            <Grid item xs={12}>
+              <div style={{ verticalAlign: "middle", textAlign: "center" }}>
+                <div id="grid" sx={{ minHeight: 400, textAlign: "center" }}>
+                  {data.map((row, index) => (
+                    <div>
+                      {row.map((cellId) => (
+                        <div
+                          onClick={editState}
+                          className={`gridItem ${
+                            obstacles.includes(cellId) ? "obstacle" : ""
+                          }`}
+                          style={getPathColors(cellId)}
+                          key={cellId}
+                          data-id={cellId}
+                        >
+                          {cellId in path && !obstacles.includes(cellId)
+                            ? `${path[cellId]}`
+                            : ""}
+                        </div>
+                      ))}
 
-          <Grid item xs={12}>
-            <Alert
-              sx={{ textAlign: "center" }}
-              severity={!running ? "info" : "warning"}
-            >
-              {!running
-                ? "There are no algorithms running. Click on a square to toggle it as an obstacle."
-                : "An algorithm is currently running."}
-            </Alert>
-          </Grid>
-          <Grid item xs={12}>
-            <div id="grid" sx={{ minHeight: 400, textAlign: "center" }}>
-              {data.map((row, index) => (
-                <div>
-                  {row.map((cellId) => (
-                    <div
-                      onClick={editState}
-                      className={`gridItem ${
-                        obstacles.includes(cellId) ? "obstacle" : ""
-                      }`}
-                      style={getPathColors(cellId)}
-                      key={cellId}
-                      data-id={cellId}
-                    >
-                      {cellId in path && !obstacles.includes(cellId)
-                        ? `${path[cellId]}`
-                        : ""}
+                      <br />
                     </div>
                   ))}
-
-                  <br />
                 </div>
-              ))}
-            </div>
-          </Grid>
-          <Grid item xs={12}>
-            <Link to="dfs-word-search" smooth={true} duration={500}>
-              <IconButton aria-label="delete" size="small">
-                <ArrowDropDownCircleIcon fontSize="small" />
-              </IconButton>
-            </Link>
+              </div>
+            </Grid>
+            <Grid item xs={12}>
+              <Link to="dfs-word-search" smooth={true} duration={500}>
+                <IconButton aria-label="delete" size="small">
+                  <ArrowDropDownCircleIcon fontSize="small" />
+                </IconButton>
+              </Link>
+            </Grid>
           </Grid>
         </Grid>
       </Grid>
