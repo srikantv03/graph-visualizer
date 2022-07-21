@@ -32,9 +32,15 @@ export default function BreadthFirstShortest() {
     setRows(e.target.value);
     clearGrid();
   };
+
   const handleColsChange = (e) => {
     setCols(e.target.value);
     clearGrid();
+  };
+
+  const handleRogChange = (e) => {
+    console.log(e.target.value);
+    setRog(parseInt(e.target.value));
   };
 
   const handlePlacingStateChange = (e) => {
@@ -163,20 +169,43 @@ export default function BreadthFirstShortest() {
     editFunction(temp);
   };
 
-  var data = [];
-  for (var i = 0; i < cols; i++) {
-    data.push([]);
-    for (var j = 0; j < rows; j++) {
-      data[i].push(rows * i + j);
-    }
-  }
-
   const rowOptions = Array.from({ length: 25 }, (_, index) => index + 1);
   const colOptions = Array.from({ length: 10 }, (_, index) => index + 1);
 
   const valuetext = (value) => {
     setAnimationSpeed(value);
     return `${value}x`;
+  };
+
+  let data = [];
+  for (let i = 0; i < cols; i++) {
+    data.push([]);
+    for (let j = 0; j < rows; j++) {
+      data[i].push(rows * i + j);
+    }
+  }
+
+  const rng = (max) => {
+    return Math.floor(Math.random() * max);
+  };
+
+  const generateRandomObstacles = () => {
+    let iter = rog;
+    console.log(iter);
+    let temp = [];
+
+    if (rows * cols - obstacles.length < iter) {
+      return;
+    }
+    while (iter > 0) {
+      let randomNumber = rng(rows * cols);
+      if (!temp.includes(randomNumber)) {
+        temp.push(randomNumber);
+        --iter;
+      }
+      console.log(iter);
+    }
+    setObstacles(temp);
   };
 
   return (
@@ -243,7 +272,26 @@ export default function BreadthFirstShortest() {
               {strings.RUN_BUTTON}
             </Button>
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={2}>
+            <TextField
+              style={{ height: "100%", width: "100%" }}
+              variant="outlined"
+              label="Search String"
+              onChange={handleRogChange}
+            />
+          </Grid>
+          <Grid item xs={2}>
+            <Button
+              color="primary"
+              variant="contained"
+              style={{ height: "100%", width: "100%" }}
+              onClick={generateRandomObstacles}
+              endIcon={<ArrowRightIcon fontSize="large" />}
+            >
+              {"rng"}
+            </Button>
+          </Grid>
+          <Grid item xs={8}>
             <ToggleButtonGroup
               value={placingState}
               exclusive
@@ -261,6 +309,7 @@ export default function BreadthFirstShortest() {
               </ToggleButton>
             </ToggleButtonGroup>
           </Grid>
+
           <Grid item xs={12}>
             <Alert
               sx={{ textAlign: "center" }}
