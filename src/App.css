@@ -110,7 +110,14 @@ body::-webkit-scrollbar {
 
 .header-text {
   font-size: 75px;
-  color: black;
+  background: rgb(188, 197, 206);
+  background: linear-gradient(
+    140deg,
+    rgba(188, 197, 206, 1) 0%,
+    rgba(147, 159, 174, 1) 100%
+  );
+  background-clip: text;
+  color: transparent;
 }
 
 .secondary-header-text {
@@ -135,11 +142,15 @@ body::-webkit-scrollbar {
 }
 
 .glass-card {
-  background: rgba(255, 255, 255, 1);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
   backdrop-filter: blur(5.5px);
   -webkit-backdrop-filter: blur(5.5px);
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.05);
-  padding: 25px;
+  padding: 4%;
+  margin: 20px;
+}
+
+.subtext {
+  font-size: 14px;
 }

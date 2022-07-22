@@ -13,6 +13,7 @@ import Header from "./components/header.jsx";
 import DepthFirst from "./components/dfsAlgs/dfs.jsx";
 import BreadthFirst from "./components/bfsAlgs/bfs.jsx";
 import WordSearchDFS from "./components/dfsAlgs/wordSearch.jsx";
+import BreadthFirstShortest from "./components/bfsAlgs/bfsShortest.jsx";
 import StickyBox from "react-sticky-box";
 import Logs from "./components/logs.jsx";
 
@@ -91,8 +92,8 @@ function MainWindow(props) {
       <Header />
       <div style={{ padding: "20px" }}>
         <Grid container sx={{ height: 100 }} spacing={3} margin={20}>
-          <Grid item md={3} xs={0}>
-            <StickyBox>
+          <Grid item md={0} xs={0}>
+            {/* <StickyBox>
               <section style={sectStyle}>
                 <div className="glass-card" style={matchParentStyle}>
                   <Tabs
@@ -149,9 +150,9 @@ function MainWindow(props) {
                   </div>
                 </div>
               </section>
-            </StickyBox>
+            </StickyBox> */}
           </Grid>
-          <Grid item md={9} xs={9}>
+          <Grid item md={12} xs={9}>
             <section style={sectStyle} id="depth-first">
               <DepthFirst addLog={addLog} />
             </section>
@@ -160,6 +161,9 @@ function MainWindow(props) {
             </section>
             <section style={sectStyle} id="dfs-word-search">
               <WordSearchDFS />
+            </section>
+            <section style={sectStyle} id="bfs-shortest-path">
+              <BreadthFirstShortest />
             </section>
           </Grid>
         </Grid>
