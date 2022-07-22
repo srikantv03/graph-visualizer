@@ -149,6 +149,7 @@ body::-webkit-scrollbar {
   border: 1px solid rgba(255, 255, 255, 0.05);
   padding: 4%;
   margin: 20px;
+  min-height: 75vh;
 }
 
 .subtext {

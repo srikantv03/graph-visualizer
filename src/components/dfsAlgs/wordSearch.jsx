@@ -213,125 +213,131 @@ export default function WordSearchDFS() {
     <React.Fragment>
       <div className="glass-card">
         <Grid container sx={{ height: 100 }} spacing={3}>
-          <Grid container padding={10} spacing={3}>
-            <Grid item xs={12}>
-              <h2>DFS Word Search</h2>
-              <p>{strings.DFS_WS_DESCRIPTION}</p>
-            </Grid>
-            <Grid item xs={4}>
-              <FormControl fullWidth>
-                <TextField
-                  sx={optionStyle}
-                  select
-                  id="row-select"
-                  value={rows}
-                  variant="outlined"
-                  label="Rows"
-                  onChange={handleRowChange}
-                >
-                  {rowOptions.map((value) => (
-                    <MenuItem value={value}>{value}</MenuItem>
-                  ))}
-                </TextField>
-              </FormControl>
-            </Grid>
-            <Grid item xs={4}>
-              <FormControl fullWidth>
-                <TextField
-                  sx={optionStyle}
-                  select
-                  id="col-select"
-                  label="Columns"
-                  variant="outlined"
-                  value={cols}
-                  onChange={handleColsChange}
-                >
-                  {colOptions.map((value) => (
-                    <MenuItem value={value}>{value}</MenuItem>
-                  ))}
-                </TextField>
-              </FormControl>
-            </Grid>
-            <Grid item xs={4}>
-              <Slider
-                aria-label="Animation Speed"
-                defaultValue={1}
-                getAriaValueText={valuetext}
-                step={0.25}
-                marks
-                min={0.25}
-                max={2}
-                valueLabelDisplay="on"
-              />
-            </Grid>
-            <Grid item xs={4}>
-              <TextField
-                sx={optionStyle}
-                style={{ height: "100%", width: "100%" }}
-                variant="outlined"
-                label="Search String"
-                onChange={handleSearchWordChange}
-              />
-            </Grid>
-            <Grid item xs={4}>
-              <Button
-                sx={optionStyle}
-                style={{ height: "100%", width: "100%" }}
-                color="secondary"
-                variant="contained"
-                onClick={generateGrid}
-                endIcon={<ArrowRightIcon fontSize="large" />}
-              >
-                {strings.GRID_RANDOM_BUTTON}
-              </Button>
-            </Grid>
-            <Grid item xs={4}>
-              <Button
-                sx={optionStyle}
-                style={{ height: "100%", width: "100%" }}
-                color="primary"
-                variant="contained"
-                onClick={dfsSearch}
-                endIcon={<ArrowRightIcon fontSize="large" />}
-              >
-                {strings.RUN_BUTTON}
-              </Button>
-            </Grid>
-            <Grid item xs={12}>
-              <Alert
-                sx={{ textAlign: "center" }}
-                severity={!running ? "info" : "warning"}
-              >
-                {!running
-                  ? "There are no algorithms running. Click on a square to toggle it as an obstacle."
-                  : "An algorithm is currently running."}
-              </Alert>
-            </Grid>
-            <Grid item xs={12}>
-              <div id="grid" sx={{ minHeight: 400, textAlign: "center" }}>
-                {data.map((row, index) => (
-                  <div>
-                    {row.map((cellId, rowIndex) => (
-                      <div
-                        className={`gridItem`}
-                        style={getPathColors(cellId)}
-                        key={cellId}
-                        data-id={cellId}
-                      >
-                        {gridData[index][rowIndex]}
-                      </div>
+          <Grid item xs={4}>
+            <Grid container padding={10} spacing={3}>
+              <Grid item xs={12}>
+                <h2>Depth-First Word Search</h2>
+                <p className="subtext">{strings.DFS_WS_DESCRIPTION}</p>
+              </Grid>
+              <Grid item xs={6}>
+                <FormControl fullWidth>
+                  <TextField
+                    sx={optionStyle}
+                    select
+                    id="row-select"
+                    value={rows}
+                    variant="outlined"
+                    label="Rows"
+                    onChange={handleRowChange}
+                  >
+                    {rowOptions.map((value) => (
+                      <MenuItem value={value}>{value}</MenuItem>
                     ))}
-                    <br />
-                  </div>
-                ))}
-              </div>
+                  </TextField>
+                </FormControl>
+              </Grid>
+              <Grid item xs={6}>
+                <FormControl fullWidth>
+                  <TextField
+                    sx={optionStyle}
+                    select
+                    id="col-select"
+                    label="Columns"
+                    variant="outlined"
+                    value={cols}
+                    onChange={handleColsChange}
+                  >
+                    {colOptions.map((value) => (
+                      <MenuItem value={value}>{value}</MenuItem>
+                    ))}
+                  </TextField>
+                </FormControl>
+              </Grid>
+              <Grid item xs={12}>
+                <Slider
+                  aria-label="Animation Speed"
+                  defaultValue={1}
+                  getAriaValueText={valuetext}
+                  step={0.25}
+                  marks
+                  min={0.25}
+                  max={2}
+                  valueLabelDisplay="on"
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <TextField
+                  sx={optionStyle}
+                  style={{ height: "100%", width: "100%" }}
+                  variant="outlined"
+                  label="Search String"
+                  onChange={handleSearchWordChange}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <Button
+                  sx={optionStyle}
+                  style={{ height: "100%", width: "100%" }}
+                  color="secondary"
+                  variant="contained"
+                  onClick={generateGrid}
+                  endIcon={<ArrowRightIcon fontSize="large" />}
+                >
+                  {strings.GRID_RANDOM_BUTTON}
+                </Button>
+              </Grid>
+              <Grid item xs={12}>
+                <Alert
+                  sx={{ textAlign: "center" }}
+                  severity={!running ? "info" : "warning"}
+                >
+                  {!running
+                    ? "There are no algorithms running. Click on a square to toggle it as an obstacle."
+                    : "An algorithm is currently running."}
+                </Alert>
+              </Grid>
+              <Grid item xs={12}>
+                <Button
+                  sx={optionStyle}
+                  style={{ height: "60px", width: "100%" }}
+                  color="primary"
+                  variant="contained"
+                  onClick={dfsSearch}
+                  endIcon={<ArrowRightIcon fontSize="large" />}
+                >
+                  {strings.RUN_BUTTON}
+                </Button>
+              </Grid>
             </Grid>
-            <Grid item xs={12}>
-              <Link to="breadth-first" smooth={true} duration={500}>
-                <IconButton aria-label="delete" size="small">
-                  <ArrowDropDownCircleIcon fontSize="small" />
-                </IconButton>
-              </Link>
+          </Grid>
+          <Grid item xs={8}>
+            <Grid container padding={10} spacing={3}>
+              <Grid item xs={12}>
+                <div id="grid" sx={{ minHeight: 400, textAlign: "center" }}>
+                  {data.map((row, index) => (
+                    <div>
+                      {row.map((cellId, rowIndex) => (
+                        <div
+                          className={`gridItem`}
+                          style={getPathColors(cellId)}
+                          key={cellId}
+                          data-id={cellId}
+                        >
+                          {gridData[index][rowIndex]}
+                        </div>
+                      ))}
+                      <br />
+                    </div>
+                  ))}
+                </div>
+              </Grid>
+              <Grid item xs={12}>
+                <Link to="breadth-first" smooth={true} duration={500}>
+                  <IconButton aria-label="delete" size="small">
+                    <ArrowDropDownCircleIcon fontSize="small" />
+                  </IconButton>
+                </Link>
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
