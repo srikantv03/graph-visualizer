@@ -48,7 +48,6 @@ function MainWindow(props) {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    height: "100vh",
   };
 
   const addLog = (newLog) => {
@@ -152,7 +151,7 @@ function MainWindow(props) {
               </section>
             </StickyBox> */}
           </Grid>
-          <Grid item md={12} xs={9}>
+          <Grid item xs={12}>
             <section style={sectStyle} id="depth-first">
               <DepthFirst addLog={addLog} />
             </section>

@@ -211,7 +211,7 @@ export default function BreadthFirstShortest() {
   return (
     <div className="glass-card">
       <Grid container sx={{ height: 100 }} spacing={3}>
-        <Grid item xs={4}>
+        <Grid item md={4} xs={12}>
           <div style={{ verticalAlign: "middle", textAlign: "center" }}>
             <Grid container sx={{ height: 100 }} spacing={3}>
               <Grid item xs={12}>
@@ -306,7 +306,7 @@ export default function BreadthFirstShortest() {
             </Grid>
           </div>
         </Grid>
-        <Grid item xs={8}>
+        <Grid item md={8} xs={12}>
           <Grid container padding={10} spacing={3}>
             <Grid item xs={12}>
               <ToggleButtonGroup
