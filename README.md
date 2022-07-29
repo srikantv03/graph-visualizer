@@ -15,8 +15,8 @@ Searching in an empty matrix is kind of boring. There will always be a way to ge
 
 As of now, we have the following options for our matrix operations:
 
-_Rows:_ This controls the number of rows in the matrix
-_Columns:_ This controls the number of columns in the matrix (max 10)
+- _Rows:_ This controls the number of rows in the matrix
+- _Columns:_ This controls the number of columns in the matrix
 
 Animation Speed: This controls the multiplier, from 0.25x to 2x of a speed of 4 operations/sec
 Show Numbers: If interested in the paths being traversed, a user could enable the number count, where each traversed grid item would display its ordering in its path.
@@ -30,7 +30,8 @@ In addition to the standard implementations of DFS and BFS, I have also added a 
 The current specializations of DFS and BFS in this application are:
 
 - _Word Search:_ Searching for an ASCII string within a matrix only using standard vertical or horizontal movements
-- _BFS Shortest Path (similar to Dijkstra's_ Finding the shortest path traversal through a graph using BFS
+- _BFS Shortest Path (similar to Dijkstra's)_ Finding the shortest path traversal through a graph using BFS
+  - Demo: ![BFS Shortest Path Demo](readme_res/bfsShortest.gif)
 
 Don't forget to have fun with it!
 
