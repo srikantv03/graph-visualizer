@@ -31,7 +31,8 @@ The current specializations of DFS and BFS in this application are:
 
 - _Word Search:_ Searching for an ASCII string within a matrix only using standard vertical or horizontal movements
 - _BFS Shortest Path (similar to Dijkstra's)_ Finding the shortest path traversal through a graph using BFS
-  - Demo: ![BFS Shortest Path Demo](readme_res/bfsShortest.gif)
+
+![BFS Shortest Path Demo](readme_res/bfsShortest.gif)
 
 Don't forget to have fun with it!
 
