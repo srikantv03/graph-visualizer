@@ -304,6 +304,7 @@ export default function WordSearchDFS() {
                   variant="contained"
                   onClick={dfsSearch}
                   endIcon={<ArrowRightIcon fontSize="large" />}
+                  disabled={running}
                 >
                   {strings.RUN_BUTTON}
                 </Button>

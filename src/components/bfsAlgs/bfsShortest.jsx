@@ -299,6 +299,7 @@ export default function BreadthFirstShortest() {
                   style={{ height: "60px", width: "100%" }}
                   onClick={bfsSearch}
                   endIcon={<ArrowRightIcon fontSize="large" />}
+                  disabled={running}
                 >
                   {strings.RUN_BUTTON}
                 </Button>

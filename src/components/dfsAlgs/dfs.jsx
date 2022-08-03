@@ -30,6 +30,7 @@ export default function DepthFirst(props) {
     setRows(e.target.value);
     clearGrid();
   };
+
   const handleColsChange = (e) => {
     setCols(e.target.value);
     clearGrid();
@@ -57,6 +58,16 @@ export default function DepthFirst(props) {
       };
     }
     return { color: "black" };
+  };
+
+  const getGridSize = () => {
+    if (cols <= 5) {
+      return ".gi-large";
+    } else if (cols <= 12) {
+      return ".gi-medium";
+    } else {
+      return ".gi-small";
+    }
   };
 
   const dfsSearch = async () => {
@@ -249,6 +260,7 @@ export default function DepthFirst(props) {
                   variant="contained"
                   onClick={dfsSearch}
                   endIcon={<ArrowRightIcon fontSize="large" />}
+                  disabled={running}
                 >
                   {strings.RUN_BUTTON}
                 </Button>
@@ -266,7 +278,7 @@ export default function DepthFirst(props) {
                           onClick={editState}
                           className={`gridItem ${
                             obstacles.includes(cellId) ? "obstacle" : ""
-                          }`}
+                          } ${getGridSize()}`}
                           style={getPathColors(cellId)}
                           key={cellId}
                           data-id={cellId}

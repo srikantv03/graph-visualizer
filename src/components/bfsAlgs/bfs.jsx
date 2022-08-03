@@ -209,6 +209,7 @@ export default function BreadthFirst() {
                 style={{ height: "100%", width: "100%" }}
                 onClick={bfsSearch}
                 endIcon={<ArrowRightIcon fontSize="large" />}
+                disabled={running}
               >
                 {strings.RUN_BUTTON}
               </Button>
