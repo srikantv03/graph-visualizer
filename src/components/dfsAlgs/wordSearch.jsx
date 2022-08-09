@@ -56,6 +56,20 @@ export default function WordSearchDFS() {
     setObstacles([]);
   };
 
+  const getClassName = (cellId) => {
+    const comp = rows;
+    let size = "gi-xs";
+    if (comp <= 5) {
+      size = "gi-large";
+    } else if (comp <= 10) {
+      size = "gi-medium";
+    } else if (comp <= 15) {
+      size = "gi-small";
+    }
+
+    return `gridItem ${size}`;
+  };
+
   const getPathColors = (cellId) => {
     if (cellId in path && path[cellId] != null) {
       let color = "black";
@@ -304,6 +318,7 @@ export default function WordSearchDFS() {
                   variant="contained"
                   onClick={dfsSearch}
                   endIcon={<ArrowRightIcon fontSize="large" />}
+                  disabled={running}
                 >
                   {strings.RUN_BUTTON}
                 </Button>
@@ -318,7 +333,7 @@ export default function WordSearchDFS() {
                     <div>
                       {row.map((cellId, rowIndex) => (
                         <div
-                          className={`gridItem`}
+                          className={getClassName(cellId)}
                           style={getPathColors(cellId)}
                           key={cellId}
                           data-id={cellId}
@@ -331,14 +346,14 @@ export default function WordSearchDFS() {
                   ))}
                 </div>
               </Grid>
-              <Grid item xs={12}>
-                <Link to="breadth-first" smooth={true} duration={500}>
-                  <IconButton aria-label="delete" size="small">
-                    <ArrowDropDownCircleIcon fontSize="small" />
-                  </IconButton>
-                </Link>
-              </Grid>
             </Grid>
+          </Grid>
+          <Grid item xs={12}>
+            <Link to="bfs-shorted" smooth={true} duration={500}>
+              <IconButton aria-label="next" size="large">
+                <ArrowDropDownCircleIcon fontSize="medium" />
+              </IconButton>
+            </Link>
           </Grid>
         </Grid>
       </div>

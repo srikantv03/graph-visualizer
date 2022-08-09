@@ -44,6 +44,36 @@ export default function BreadthFirst() {
     setPath({});
   };
 
+  const getPathColors = (cellId) => {
+    if (cellId in path && path[cellId] != null) {
+      let color = "black";
+      if ((15 - Math.min(rows, cols)) * path[cellId] < 128) {
+        color = "white";
+      }
+      return {
+        backgroundColor: `rgb(0, ${
+          (15 - Math.min(rows, cols)) * path[cellId]
+        }, ${255 - (15 - Math.min(rows, cols)) * path[cellId]})`,
+        color: color,
+      };
+    }
+    return { color: "black" };
+  };
+
+  const getClassName = (cellId) => {
+    const comp = rows;
+    let size = "gi-xs";
+    if (comp <= 5) {
+      size = "gi-large";
+    } else if (comp <= 10) {
+      size = "gi-medium";
+    } else if (comp <= 15) {
+      size = "gi-small";
+    }
+
+    return `gridItem ${obstacles.includes(cellId) ? "obstacle" : ""} ${size}`;
+  };
+
   const bfsSearch = async () => {
     var m = cols - 1;
     var n = rows - 1;
@@ -206,9 +236,10 @@ export default function BreadthFirst() {
               <Button
                 color="primary"
                 variant="contained"
-                style={{ height: "100%", width: "100%" }}
+                style={{ height: "60px", width: "100%" }}
                 onClick={bfsSearch}
                 endIcon={<ArrowRightIcon fontSize="large" />}
+                disabled={running}
               >
                 {strings.RUN_BUTTON}
               </Button>
@@ -218,31 +249,24 @@ export default function BreadthFirst() {
         <Grid item md={8} xs={12}>
           <Grid container padding={10} spacing={3}>
             <Grid item xs={12}>
-              <div id="grid" sx={{ minHeight: 400, textAlign: "center" }}>
+              <div
+                id="grid"
+                sx={{
+                  minHeight: 400,
+                  textAlign: "center",
+                  verticalAlign: "middle",
+                }}
+              >
                 {data.map((row, index) => (
                   <div>
                     {row.map((cellId) => (
                       <div
                         onClick={editState}
-                        className={`gridItem ${
-                          obstacles.includes(cellId) ? "obstacle" : ""
-                        }`}
-                        style={{
-                          backgroundColor:
-                            cellId in path
-                              ? `rgb(0, ${
-                                  (30 - Math.min(rows, cols)) * path[cellId]
-                                }, ${
-                                  255 -
-                                  (30 - Math.min(rows, cols)) * path[cellId]
-                                })`
-                              : {},
-                        }}
+                        className={getClassName(cellId)}
+                        style={getPathColors(cellId)}
                         key={cellId}
                         data-id={cellId}
-                      >
-                        {/* {showNumbers && cellId in path ? `${path[cellId]}` : ""} */}
-                      </div>
+                      ></div>
                     ))}
 
                     <br />
@@ -250,14 +274,14 @@ export default function BreadthFirst() {
                 ))}
               </div>
             </Grid>
-            <Grid item xs={12}>
-              <Link to="dfs-word-search" smooth={true} duration={500}>
-                <IconButton aria-label="delete" size="small">
-                  <ArrowDropDownCircleIcon fontSize="small" />
-                </IconButton>
-              </Link>
-            </Grid>
           </Grid>
+        </Grid>
+        <Grid item xs={12}>
+          <Link to="dfs-word-search" smooth={true} duration={500}>
+            <IconButton aria-label="next" size="medium">
+              <ArrowDropDownCircleIcon fontSize="medium" />
+            </IconButton>
+          </Link>
         </Grid>
       </Grid>
     </div>

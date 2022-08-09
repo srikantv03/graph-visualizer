@@ -4,6 +4,7 @@ import MainWindow from "./MainWindow";
 import { ThemeProvider, createTheme } from "@material-ui/core";
 import "./index.css";
 import "./App.css";
+import "./gridItems.css";
 // need to import the vis network css in order to show tooltip
 // import "./network.css";
 

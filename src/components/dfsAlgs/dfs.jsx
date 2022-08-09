@@ -30,6 +30,7 @@ export default function DepthFirst(props) {
     setRows(e.target.value);
     clearGrid();
   };
+
   const handleColsChange = (e) => {
     setCols(e.target.value);
     clearGrid();
@@ -57,6 +58,20 @@ export default function DepthFirst(props) {
       };
     }
     return { color: "black" };
+  };
+
+  const getClassName = (cellId) => {
+    const comp = rows;
+    let size = "gi-xs";
+    if (comp <= 5) {
+      size = "gi-large";
+    } else if (comp <= 10) {
+      size = "gi-medium";
+    } else if (comp <= 15) {
+      size = "gi-small";
+    }
+
+    return `gridItem ${obstacles.includes(cellId) ? "obstacle" : ""} ${size}`;
   };
 
   const dfsSearch = async () => {
@@ -249,6 +264,7 @@ export default function DepthFirst(props) {
                   variant="contained"
                   onClick={dfsSearch}
                   endIcon={<ArrowRightIcon fontSize="large" />}
+                  disabled={running}
                 >
                   {strings.RUN_BUTTON}
                 </Button>
@@ -264,9 +280,7 @@ export default function DepthFirst(props) {
                       {row.map((cellId) => (
                         <div
                           onClick={editState}
-                          className={`gridItem ${
-                            obstacles.includes(cellId) ? "obstacle" : ""
-                          }`}
+                          className={getClassName(cellId)}
                           style={getPathColors(cellId)}
                           key={cellId}
                           data-id={cellId}
@@ -281,8 +295,8 @@ export default function DepthFirst(props) {
           </Grid>
           <Grid item xs={12}>
             <Link to="breadth-first" smooth={true} duration={500}>
-              <IconButton aria-label="delete" size="large">
-                <ArrowDropDownCircleIcon fontSize="large" />
+              <IconButton aria-label="next" size="large">
+                <ArrowDropDownCircleIcon fontSize="medium" />
               </IconButton>
             </Link>
           </Grid>

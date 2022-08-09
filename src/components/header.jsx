@@ -128,6 +128,8 @@ function Header() {
               sx={{ margin: "10px" }}
               color="secondary"
               variant="contained"
+              target="_blank"
+              href="https://www.github.com/srikantv03/graph-visualizer"
             >
               Source Code
             </Button>

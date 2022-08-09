@@ -84,6 +84,20 @@ export default function BreadthFirstShortest() {
     return { color: "black" };
   };
 
+  const getClassName = (cellId) => {
+    const comp = rows;
+    let size = "gi-xs";
+    if (comp <= 5) {
+      size = "gi-large";
+    } else if (comp <= 10) {
+      size = "gi-medium";
+    } else if (comp <= 15) {
+      size = "gi-small";
+    }
+
+    return `gridItem ${obstacles.includes(cellId) ? "obstacle" : ""} ${size}`;
+  };
+
   const bfsSearch = async () => {
     var m = cols - 1;
     var n = rows - 1;
@@ -299,6 +313,7 @@ export default function BreadthFirstShortest() {
                   style={{ height: "60px", width: "100%" }}
                   onClick={bfsSearch}
                   endIcon={<ArrowRightIcon fontSize="large" />}
+                  disabled={running}
                 >
                   {strings.RUN_BUTTON}
                 </Button>
@@ -334,9 +349,7 @@ export default function BreadthFirstShortest() {
                       {row.map((cellId) => (
                         <div
                           onClick={editState}
-                          className={`gridItem ${
-                            obstacles.includes(cellId) ? "obstacle" : ""
-                          }`}
+                          className={getClassName(cellId)}
                           style={getPathColors(cellId)}
                           key={cellId}
                           data-id={cellId}
@@ -352,13 +365,6 @@ export default function BreadthFirstShortest() {
                   ))}
                 </div>
               </div>
-            </Grid>
-            <Grid item xs={12}>
-              <Link to="dfs-word-search" smooth={true} duration={500}>
-                <IconButton aria-label="delete" size="small">
-                  <ArrowDropDownCircleIcon fontSize="small" />
-                </IconButton>
-              </Link>
             </Grid>
           </Grid>
         </Grid>
