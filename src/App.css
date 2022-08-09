@@ -64,54 +64,6 @@ body::-webkit-scrollbar {
   padding: 0px;
 }
 
-@media only screen and (max-width: 600px) {
-  .example {
-    background: red;
-  }
-}
-
-@media only screen and (min-width: 600px) {
-  .example {
-    background: green;
-  }
-}
-
-@media only screen and (min-width: 768px) {
-  .example {
-    background: blue;
-  }
-}
-
-@media only screen and (min-width: 992px) {
-  .example {
-    background: orange;
-  }
-}
-
-@media only screen and (min-width: 1200px) {
-  .example {
-    background: pink;
-  }
-}
-
-.gi-large {
-  width: 50px;
-  height: 50px;
-  line-height: 50px;
-}
-
-.gi-medium {
-  width: 44px;
-  height: 44px;
-  line-height: 44px;
-}
-
-.gi-small {
-  width: 32px;
-  height: 32px;
-  line-height: 32px;
-}
-
 #grid {
   padding: 4px;
 }

@@ -60,14 +60,18 @@ export default function DepthFirst(props) {
     return { color: "black" };
   };
 
-  const getGridSize = () => {
-    if (cols <= 5) {
-      return ".gi-large";
-    } else if (cols <= 12) {
-      return ".gi-medium";
-    } else {
-      return ".gi-small";
+  const getClassName = (cellId) => {
+    const comp = rows;
+    let size = "gi-xs";
+    if (comp <= 5) {
+      size = "gi-large";
+    } else if (comp <= 10) {
+      size = "gi-medium";
+    } else if (comp <= 15) {
+      size = "gi-small";
     }
+
+    return `gridItem ${obstacles.includes(cellId) ? "obstacle" : ""} ${size}`;
   };
 
   const dfsSearch = async () => {
@@ -276,9 +280,7 @@ export default function DepthFirst(props) {
                       {row.map((cellId) => (
                         <div
                           onClick={editState}
-                          className={`gridItem ${
-                            obstacles.includes(cellId) ? "obstacle" : ""
-                          } ${getGridSize()}`}
+                          className={getClassName(cellId)}
                           style={getPathColors(cellId)}
                           key={cellId}
                           data-id={cellId}
@@ -293,8 +295,8 @@ export default function DepthFirst(props) {
           </Grid>
           <Grid item xs={12}>
             <Link to="breadth-first" smooth={true} duration={500}>
-              <IconButton aria-label="delete" size="large">
-                <ArrowDropDownCircleIcon fontSize="large" />
+              <IconButton aria-label="next" size="large">
+                <ArrowDropDownCircleIcon fontSize="medium" />
               </IconButton>
             </Link>
           </Grid>
